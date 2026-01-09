@@ -84,69 +84,122 @@ export default function App() {
     return { g: 'F', c: '#dc2626' };
   };
 
-  const PersonModal = () => {
-    if (!person) return null;
-    const { g, c } = getGrade(person.total);
-    return (
-      <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.6)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:50,padding:8}} onClick={() => setPerson(null)}>
-        <div style={{background:'white',borderRadius:12,width:'100%',maxWidth:400,maxHeight:'90vh',display:'flex',flexDirection:'column'}} onClick={e => e.stopPropagation()}>
-          <div style={{background:person.teamColor,padding:12,borderRadius:'12px 12px 0 0'}}>
-            <button onClick={() => setPerson(null)} style={{color:'white',background:'none',border:'none',cursor:'pointer',marginBottom:4}}><ArrowLeft size={16}/> กลับ</button>
-            <h2 style={{color:'white',margin:0,fontSize:20}}>{person.name}</h2>
-            <p style={{color:'rgba(255,255,255,0.8)',margin:0,fontSize:12}}>{person.teamName}</p>
-          </div>
-          <div style={{padding:12,overflow:'auto',flex:1}}>
-            <div style={{display:'flex',gap:8,marginBottom:12}}>
-              <div style={{flex:1,background:'#eff6ff',padding:12,borderRadius:8,textAlign:'center'}}>
-                <p style={{fontSize:12,color:'#64748b',margin:0}}>คะแนน</p>
-                <p style={{fontSize:24,fontWeight:'bold',color:'#2563eb',margin:0}}>{person.total}</p>
-              </div>
-              <div style={{flex:1,background:'#f0fdf4',padding:12,borderRadius:8,textAlign:'center'}}>
-                <p style={{fontSize:12,color:'#64748b',margin:0}}>เกรด</p>
-                <p style={{fontSize:24,fontWeight:'bold',color:c,margin:0}}>{g}</p>
-              </div>
-            </div>
-            <div style={{background:'#f8fafc',padding:12,borderRadius:8,marginBottom:12}}>
-              <h3 style={{fontSize:14,margin:'0 0 8px'}}>รายละเอียดคะแนน</h3>
-              {criteria.map((cr, i) => {
-                const sc = person.scores[i];
-                const low = sc < 8;
-                return (
-                  <div key={i} style={{display:'flex',justifyContent:'space-between',padding:6,marginBottom:4,borderRadius:4,background:low?'#fef2f2':'white',border:`1px solid ${low?'#fca5a5':'#e2e8f0'}`}}>
-                    <span style={{fontSize:11,color:low?'#b91c1c':'#334155'}}>{cr}</span>
-                    <span style={{fontSize:11,fontWeight:600,color:low?'#dc2626':'#2563eb'}}>{sc}/10</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div style={{background:'#fefce8',padding:20,borderRadius:16}}>
-  <h3 style={{fontSize:22,margin:'0 0 12px'}}>หมายเหตุ</h3>
+ const PersonModal = () => {
+  if (!person) return null;
+  const { g, c } = getGrade(person.total);
 
-  <ul style={{
-    margin: 0,
-    paddingLeft: 20,
-    background: 'white',
-    padding: 16,
-    borderRadius: 12,
-    color: '#475569',
-    fontSize: 16,
-    lineHeight: 1.7,
-    whiteSpace: 'normal' // ไม่ต้องใช้ pre-line แล้ว เพราะเราทำเป็น list
-  }}>
-    {(person.review || '-')
-      .split('\n')
-      .map(s => s.trim())
-      .filter(Boolean)
-      .map((line, idx) => (
-        <li key={idx} style={{ marginBottom: 10 }}>
-          {line.replace(/^•\s?/, '')}
-        </li>
-      ))}
-  </ul>
-</div>
-          
-    );
-  };
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.6)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 50,
+        padding: 8
+      }}
+      onClick={() => setPerson(null)}
+    >
+      <div
+        style={{
+          background: 'white',
+          borderRadius: 12,
+          width: '100%',
+          maxWidth: 400,
+          maxHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ background: person.teamColor, padding: 12, borderRadius: '12px 12px 0 0' }}>
+          <button
+            onClick={() => setPerson(null)}
+            style={{
+              color: 'white',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              marginBottom: 4
+            }}
+          >
+            <ArrowLeft size={16} /> กลับ
+          </button>
+          <h2 style={{ color: 'white', margin: 0, fontSize: 20 }}>{person.name}</h2>
+          <p style={{ color: 'rgba(255,255,255,0.8)', margin: 0, fontSize: 12 }}>{person.teamName}</p>
+        </div>
+
+        <div style={{ padding: 12, overflow: 'auto', flex: 1 }}>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+            <div style={{ flex: 1, background: '#eff6ff', padding: 12, borderRadius: 8, textAlign: 'center' }}>
+              <p style={{ fontSize: 12, color: '#64748b', margin: 0 }}>คะแนน</p>
+              <p style={{ fontSize: 24, fontWeight: 'bold', color: '#2563eb', margin: 0 }}>{person.total}</p>
+            </div>
+            <div style={{ flex: 1, background: '#f0fdf4', padding: 12, borderRadius: 8, textAlign: 'center' }}>
+              <p style={{ fontSize: 12, color: '#64748b', margin: 0 }}>เกรด</p>
+              <p style={{ fontSize: 24, fontWeight: 'bold', color: c, margin: 0 }}>{g}</p>
+            </div>
+          </div>
+
+          <div style={{ background: '#f8fafc', padding: 12, borderRadius: 8, marginBottom: 12 }}>
+            <h3 style={{ fontSize: 14, margin: '0 0 8px' }}>รายละเอียดคะแนน</h3>
+            {criteria.map((cr, i) => {
+              const sc = person.scores[i];
+              const low = sc < 8;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    padding: 6,
+                    marginBottom: 4,
+                    borderRadius: 4,
+                    background: low ? '#fef2f2' : 'white',
+                    border: `1px solid ${low ? '#fca5a5' : '#e2e8f0'}`
+                  }}
+                >
+                  <span style={{ fontSize: 11, color: low ? '#b91c1c' : '#334155' }}>{cr}</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: low ? '#dc2626' : '#2563eb' }}>{sc}/10</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* ✅ หมายเหตุแบบอ่านง่าย (เว้นบรรทัด) */}
+          <div style={{ background: '#fefce8', padding: 14, borderRadius: 12 }}>
+            <h3 style={{ fontSize: 16, margin: '0 0 10px' }}>หมายเหตุ</h3>
+
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: 18,
+                background: 'white',
+                padding: 12,
+                borderRadius: 10,
+                color: '#475569',
+                fontSize: 13,
+                lineHeight: 1.7
+              }}
+            >
+              {(person.review || '-')
+                .split('\n')
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .map((line, idx) => (
+                  <li key={idx} style={{ marginBottom: 8 }}>
+                    {line.replace(/^•\s?/, '')}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
   const Slide0 = () => (
     <div style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:'linear-gradient(to bottom right,#0f172a,#1e293b)',color:'white',padding:24}}>
