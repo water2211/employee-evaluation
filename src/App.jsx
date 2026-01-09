@@ -1124,110 +1124,116 @@ const AttendanceSlide = () => {
 };
 
 
-  const AwardsSlide = () => {
-    const totalProfit = 27795765.23;
-    const kpiBonus = totalProfit * 0.001;
+ const AwardsSlide = () => {
+  const totalProfit = 27795765.23;
+  const kpiBonus = totalProfit * 0.001;
 
-    const awards = [
-      {
-        title: '🏆 รางวัลไม่สาย ไม่ขาด ไม่ลา',
-        desc: 'พนักงานที่มีวินัยเรื่องเวลาดีเยี่ยมตลอดปี',
-        color: '#16a34a',
-        bg: '#dcfce7',
-        winners: ['อ๊อฟ', 'พี่ยอด', 'เจษ', 'บอส', 'บูม'],
-        reward: 'ได้รับโบนัสเต็มจำนวน ⭐'
-          <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿1,000</p>
-              </div>
-      },
-      {
-        title: '⏰ รางวัลขยันทำ OT',
-        desc: 'Top 3 พนักงานที่ทุ่มเททำ OT มากที่สุด',
-        color: '#d97706',
-        bg: '#fef3c7',
-        winners: ['🥇 เชอร์รี่ (304 ชม.)', '🥈 โอเว่น (200 ชม.)', '🥉 ก็อต (136 ชม.)'],
-        reward: 'ขอบคุณที่ทุ่มเทให้องค์กร 💪'
-          <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿2,000</p>
-              </div>
-      },
-      {
-        title: '💰 รางวัลทีมทำยอดขายสูงสุด',
-        desc: 'ทีมที่สร้างกำไรให้องค์กรมากที่สุด',
-        color: '#7c3aed',
-        bg: '#ede9fe',
-        winners: ['🥇 ทีมเกมส์ เกมส์ เชอรรี่ องุ่น อ๊อฟ เบนซ์ (17.65 ล้าน)'],
-        reward: 'รวมกำไรทั้งปี 27.79 ล้านบาท 🎉'
-        <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿2,000</p>
-      }
-    ];
+  const awards = [
+    {
+      title: '🏆 รางวัลไม่สาย ไม่ขาด ไม่ลา',
+      desc: 'พนักงานที่มีวินัยเรื่องเวลาดีเยี่ยมตลอดปี',
+      color: '#16a34a',
+      bg: '#dcfce7',
+      winners: ['อ๊อฟ', 'พี่ยอด', 'เจษ', 'บอส', 'บูม'],
+      reward: 'ได้รับโบนัสเต็มจำนวน ⭐',
+      prize: 1000
+    },
+    {
+      title: '⏰ รางวัลขยันทำ OT',
+      desc: 'Top 3 พนักงานที่ทุ่มเททำ OT มากที่สุด',
+      color: '#d97706',
+      bg: '#fef3c7',
+      winners: ['🥇 เชอร์รี่ (304 ชม.)', '🥈 โอเว่น (200 ชม.)', '🥉 ก็อต (136 ชม.)'],
+      reward: 'ขอบคุณที่ทุ่มเทให้องค์กร 💪',
+      prize: 2000
+    },
+    {
+      title: '💰 รางวัลทีมทำยอดขายสูงสุด',
+      desc: 'ทีมที่สร้างกำไรให้องค์กรมากที่สุด',
+      color: '#7c3aed',
+      bg: '#ede9fe',
+      winners: ['🥇 ทีมเกมส์ เกมส์ เชอรรี่ องุ่น อ๊อฟ เบนซ์ (17.65 ล้าน)'],
+      reward: 'รวมกำไรทั้งปี 27.79 ล้านบาท 🎉',
+      prize: 2000
+    }
+  ];
 
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:12,paddingBottom: 130,overflow:'auto'}}>
-        <h2 style={{fontSize:20,fontWeight:'bold',color:'white',marginBottom:12,textAlign:'center'}}>🎖️ รางวัลพนักงานดีเด่น 2568</h2>
-        
-        {awards.map((award, i) => (
-          <div key={i} style={{background:award.bg,borderRadius:8,padding:10,marginBottom:10,borderLeft:`4px solid ${award.color}`}}>
-            <h3 style={{fontSize:14,fontWeight:'bold',color:award.color,margin:'0 0 4px'}}>{award.title}</h3>
-            <p style={{fontSize:10,color:'#64748b',margin:'0 0 8px'}}>{award.desc}</p>
-            <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:6}}>
-              {award.winners.map((w, j) => (
-                <span key={j} style={{background:award.color,color:'white',padding:'4px 10px',borderRadius:12,fontSize:11,fontWeight:500}}>{w}</span>
-              ))}
+  return (
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:12,paddingBottom:130,overflow:'auto'}}>
+      <h2 style={{fontSize:20,fontWeight:'bold',color:'white',marginBottom:12,textAlign:'center'}}>🎖️ รางวัลพนักงานดีเด่น 2568</h2>
+
+      {awards.map((award, i) => (
+        <div key={i} style={{background:award.bg,borderRadius:8,padding:10,marginBottom:10,borderLeft:`4px solid ${award.color}`}}>
+          <div style={{display:'flex',alignItems:'flex-start',gap:10}}>
+            <div style={{flex:1}}>
+              <h3 style={{fontSize:14,fontWeight:'bold',color:award.color,margin:'0 0 4px'}}>{award.title}</h3>
+              <p style={{fontSize:10,color:'#64748b',margin:'0 0 8px'}}>{award.desc}</p>
             </div>
-            <p style={{fontSize:10,color:award.color,margin:0,fontWeight:500}}>{award.reward}</p>
-          </div>
-        ))}
 
-      
-
-        <div style={{background:'linear-gradient(to right,#ec4899,#be185d)',borderRadius:8,padding:12,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>💎 รางวัลผลงานโดดเด่นด้านความตั้งใจ มุ่งมานะ</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีความทุ่มเท ช่วยเหลืองาน และได้รับคำชมจากหัวหน้าทีม</p>
-          <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
-            <div style={{display:'flex',alignItems:'center',gap:10}}>
-              <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#ec4899,#be185d)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🏅</div>
-              <div>
-                <p style={{fontSize:16,fontWeight:'bold',color:'#be185d',margin:0}}>เบนซ์</p>
-                <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมเกมส์</p>
-              </div>
-              <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
-              </div>
-            </div>
-            <div style={{background:'#fdf2f8',padding:8,borderRadius:4,marginTop:8}}>
-              <p style={{fontSize:10,color:'#be185d',margin:0,fontStyle:'italic'}}>"จัดการงานหลังบ้านได้ดีมาก" — คะแนน 99/100 สูงสุดในองค์กร</p>
+            <div style={{textAlign:'right'}}>
+              <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>
+                +฿{award.prize.toLocaleString()}
+              </p>
             </div>
           </div>
+
+          <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:6}}>
+            {award.winners.map((w, j) => (
+              <span key={j} style={{background:award.color,color:'white',padding:'4px 10px',borderRadius:12,fontSize:11,fontWeight:500}}>
+                {w}
+              </span>
+            ))}
+          </div>
+
+          <p style={{fontSize:10,color:award.color,margin:0,fontWeight:500}}>{award.reward}</p>
         </div>
+      ))}
 
-        <div style={{background:'linear-gradient(to right,#06b6d4,#0891b2)',borderRadius:8,padding:12}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>📈 รางวัลพัฒนาการดีเด่น</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีพัฒนาการในการทำงานโดดเด่น</p>
-          <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
-            <div style={{display:'flex',alignItems:'center',gap:10}}>
-              <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#06b6d4,#0891b2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🌟</div>
-              <div>
-                <p style={{fontSize:16,fontWeight:'bold',color:'#0891b2',margin:0}}>อู๋ (ปะจิ) และ อ๊อฟ</p>
-                <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมโอเว่น</p>
-              </div>
-              <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
-              </div>
+      <div style={{background:'linear-gradient(to right,#ec4899,#be185d)',borderRadius:8,padding:12,marginBottom:10}}>
+        <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>💎 รางวัลผลงานโดดเด่นด้านความตั้งใจ มุ่งมานะ</h3>
+        <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีความทุ่มเท ช่วยเหลืองาน และได้รับคำชมจากหัวหน้าทีม</p>
+        <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
+          <div style={{display:'flex',alignItems:'center',gap:10}}>
+            <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#ec4899,#be185d)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🏅</div>
+            <div>
+              <p style={{fontSize:16,fontWeight:'bold',color:'#be185d',margin:0}}>เบนซ์</p>
+              <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมเกมส์</p>
             </div>
-            <div style={{background:'#ecfeff',padding:8,borderRadius:4,marginTop:8}}>
-              <p style={{fontSize:10,color:'#0891b2',margin:0,fontStyle:'italic'}}>"โดยรวมทำงานได้ดี มีไหวพริบในการแก้ปัญหา" — คะแนน 96/100</p>
+            <div style={{marginLeft:'auto',textAlign:'right'}}>
+              <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
             </div>
+          </div>
+          <div style={{background:'#fdf2f8',padding:8,borderRadius:4,marginTop:8}}>
+            <p style={{fontSize:10,color:'#be185d',margin:0,fontStyle:'italic'}}>"จัดการงานหลังบ้านได้ดีมาก" — คะแนน 99/100 สูงสุดในองค์กร</p>
           </div>
         </div>
       </div>
-    );
-  };
 
+      <div style={{background:'linear-gradient(to right,#06b6d4,#0891b2)',borderRadius:8,padding:12}}>
+        <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>📈 รางวัลพัฒนาการดีเด่น</h3>
+        <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีพัฒนาการในการทำงานโดดเด่น</p>
+        <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
+          <div style={{display:'flex',alignItems:'center',gap:10}}>
+            <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#06b6d4,#0891b2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🌟</div>
+            <div>
+              <p style={{fontSize:16,fontWeight:'bold',color:'#0891b2',margin:0}}>อู๋ (ปะจิ) และ อ๊อฟ</p>
+              <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมโอเว่น</p>
+            </div>
+            <div style={{marginLeft:'auto',textAlign:'right'}}>
+              <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
+            </div>
+          </div>
+          <div style={{background:'#ecfeff',padding:8,borderRadius:4,marginTop:8}}>
+            <p style={{fontSize:10,color:'#0891b2',margin:0,fontStyle:'italic'}}>"โดยรวมทำงานได้ดี มีไหวพริบในการแก้ปัญหา" — คะแนน 96/100</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
   const SummarySlide = () => {
     const all = teams.flatMap(t => t.members);
     const avg = Math.round(all.reduce((a, m) => a + m.total, 0) / all.length);
@@ -1287,6 +1293,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
