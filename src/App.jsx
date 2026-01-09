@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Users, TrendingUp, ArrowLeft } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend, Cell } from 'recharts';
@@ -16,9 +17,9 @@ const images = {
     'บูม': '/images/boom.jpg',
     'ใบตอง': '/images/baitong.jpg',
     'ปราย': '/images/prai.jpg',
-    'อ๊อฟ': '/images/off.jpg',
+    'ออฟ': '/images/off.jpg',
     'เชอรี่': '/images/cherry.jpg',
-    'เชอรรี่': '/images/cherry.jpg',
+    'เชอร์รี่': '/images/cherry.jpg',
     'เบนซ์': '/images/benz.jpg',
     'พี่ยอด': '/images/yod.jpg',
     'บอส': '/images/boss.jpg',
@@ -56,7 +57,7 @@ const teams = [
     { name: 'ฟอร์ด', scores: [10,10,10,10,10,10,10,9,9,10], total: 98, review: 'การทำงานมีความละเอียดรอบคอบ เข้าใจงานได้ดี' }
   ]},
   { name: 'ทีมเกมส์', leader: 'เกมส์', color: '#a855f7', hasSales: true, members: [
-    { name: 'อ๊อฟ', scores: [8,7,9,10,8,7,7,7,7,10], total: 80, review: 'ตอบลูกค้าพื้นฐานได้ดีมาก มีความทุ่มเท' },
+    { name: 'ออฟ', scores: [8,7,9,10,8,7,7,7,7,10], total: 80, review: 'ตอบลูกค้าพื้นฐานได้ดีมาก มีความทุ่มเท' },
     { name: 'องุ่น', scores: [9,8,10,10,9,9,9,10,9,10], total: 93, review: 'จัดการสินค้าบัญชี BM Nolimit ได้ดี' },
     { name: 'เบนซ์', scores: [10,9,10,10,10,10,10,10,10,10], total: 99, review: 'จัดการงานหลังบ้านได้ดีมาก' },
     { name: 'เชอรี่', scores: [8,7,10,10,7,7,7,7,7,10], total: 80, review: 'จัดการสินค้า Mbasic ได้ค่อนข้างดี' }
@@ -81,8 +82,8 @@ const workMembers = [
   { name: 'โอเว่น', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2023', years: 2, months: 4, salary: 18150, bonus: 36300 },
   { name: 'ก็อต', team: 'หัวหน้าทีม', color: '#475569', start: '27-02-2024', years: 1, months: 10, salary: 16500, bonus: 16500 },
   { name: 'แมน', team: 'ทีมโอเว่น', color: '#3b82f6', start: '10-03-2024', years: 1, months: 9, salary: 15000, bonus: 15000, warning: true },
-  { name: 'เชอรรี่', team: 'ทีมเกมส์', color: '#a855f7', start: '20-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
-  { name: 'อ๊อฟ', team: 'ทีมเกมส์', color: '#a855f7', start: '25-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
+  { name: 'เชอร์รี่', team: 'ทีมเกมส์', color: '#a855f7', start: '20-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
+  { name: 'ออฟ', team: 'ทีมเกมส์', color: '#a855f7', start: '25-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
   { name: 'ฟอร์ด', team: 'ทีมวุฒิ', color: '#10b981', start: '24-08-2024', years: 1, months: 4, salary: 10300, bonus: 10300 },
   { name: 'ปะจิ', team: 'ทีมเกมส์', color: '#a855f7', start: '19-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
   { name: 'เบนซ์', team: 'ทีมเกมส์', color: '#a855f7', start: '20-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500, warning: true },
@@ -100,23 +101,31 @@ const workMembers = [
 ];
 
 const attendanceData = [
-    { name: 'น้ำ', late: 0, lateMin: 0, sick: 1, personal: 2, absent: 0 },
-    { name: 'อิ่ม', late: 0, lateMin: 0, sick: 3, personal: 11, absent: 0 },
-    { name: 'วุฒิ', late: 132, lateMin: 2579, sick: 17, personal: 3, absent: 2 },
-    { name: 'ทิว', late: 17, lateMin: 485, sick: 0, personal: 1, absent: 0 },
-    { name: 'โอเว่น', late: 1, lateMin: 8, sick: 0, personal: 0, absent: 0 },
-    { name: 'เกมส์', late: 85, lateMin: 1225, sick: 0, personal: 0, absent: 0 },
-    { name: 'ก็อต', late: 39, lateMin: 565, sick: 1, personal: 4, absent: 0 },
-    { name: 'ทิพย์', late: 57, lateMin: 442, sick: 2, personal: 0, absent: 0 },
-    { name: 'อุ้ม', late: 50, lateMin: 645, sick: 0, personal: 0, absent: 0 },
-    { name: 'ใบตอง', late: 26, lateMin: 535, sick: 6, personal: 3, absent: 3 },
-    { name: 'เบนซ์', late: 23, lateMin: 125, sick: 0, personal: 5, absent: 0 },
-    { name: 'ฟอร์ด', late: 0, lateMin: 0, sick: 0, personal: 0, absent: 0 },
-    { name: 'พี่ยอด', late: 0, lateMin: 0, sick: 0, personal: 0, absent: 0 },
-    { name: 'เจษ', late: 0, lateMin: 0, sick: 0, personal: 0, absent: 0 },
-    { name: 'บอส', late: 0, lateMin: 0, sick: 0, personal: 0, absent: 0 },
-    { name: 'บูม', late: 0, lateMin: 0, sick: 0, personal: 0, absent: 0 },
+    { name: 'น้ำ', late: 0, lateMin: 0, sick: 1, personal: 2, vacation: 0, absent: 0 },
+    { name: 'อิ่ม', late: 0, lateMin: 0, sick: 3, personal: 11, vacation: 0, absent: 0 },
+    { name: 'วุฒิ', late: 132, lateMin: 2579, sick: 17, personal: 3, vacation: 3, absent: 2 },
+    { name: 'ปราย', late: 2, lateMin: 5, sick: 1, personal: 1, vacation: 0, absent: 0 },
+    { name: 'ทิว', late: 17, lateMin: 485, sick: 0, personal: 1, vacation: 0, absent: 0 },
+    { name: 'ฟอร์ด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'โอเว่น', late: 1, lateMin: 8, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'แมน', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'อู๋', late: 2, lateMin: 9, sick: 6, personal: 0, vacation: 0, absent: 0 },
+    { name: 'เกมส์', late: 85, lateMin: 1225, sick: 0, personal: 0, vacation: 3, absent: 0 },
+    { name: 'เชอร์รี่', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 4, absent: 0 },
+    { name: 'เบนซ์', late: 23, lateMin: 125, sick: 0, personal: 5, vacation: 0, absent: 0 },
+    { name: 'องุ่น', late: 1, lateMin: 18, sick: 1, personal: 0, vacation: 0, absent: 0 },
+    { name: 'ออฟ', late: 1, lateMin: 0, sick: 0, personal: 5, vacation: 0, absent: 0 },
+    { name: 'ก็อต', late: 39, lateMin: 565, sick: 1, personal: 4, vacation: 0, absent: 0 },
+    { name: 'ทิพย์', late: 57, lateMin: 442, sick: 2, personal: 0, vacation: 0, absent: 0 },
+    { name: 'พี่ยอด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'อุ้ม', late: 50, lateMin: 645, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'ใบตอง', late: 26, lateMin: 535, sick: 6, personal: 3, vacation: 0, absent: 3 },
+    { name: 'เจษ', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'บอส', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'บูม', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+    { name: 'ไปท์', late: 2, lateMin: 11, sick: 0, personal: 0, vacation: 0, absent: 0 }
   ];
+
   const Avatar = ({ name, size = 60, style = {} }) => {
     const img = getImage(name);
     if (img) {
@@ -124,7 +133,7 @@ const attendanceData = [
     }
     return (
       <div style={{width:size,height:size,borderRadius:'50%',background:'#e2e8f0',display:'flex',alignItems:'center',justifyContent:'center',...style}}>
-        <User size={size*0.5} color="#94a3b8" />
+        <Users size={size*0.5} color="#94a3b8" />
       </div>
     );
   };
@@ -190,24 +199,24 @@ export default function App() {
 
   const Slide0 = () => (
     <div style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:'linear-gradient(to bottom right,#0f172a,#1e293b)',color:'white',padding:24}}>
-      <div style={{fontSize:48,marginBottom:16}}>📊</div>
-      <h1 style={{fontSize:28,marginBottom:12,textAlign:'center'}}>การประเมินผลพนักงาน</h1>
-      <p style={{fontSize:18,color:'#94a3b8',marginBottom:24}}>ประจำปี 2025</p>
-      <div style={{display:'flex',gap:8,flexWrap:'wrap',justifyContent:'center'}}>
-        {teams.map((t, i) => <span key={i} style={{padding:'4px 12px',borderRadius:20,background:t.color,fontSize:12}}>{t.name}</span>)}
+      <div style={{fontSize:64,marginBottom:20}}>📊</div>
+      <h1 style={{fontSize:36,marginBottom:16,textAlign:'center'}}>การประเมินผลพนักงาน</h1>
+      <p style={{fontSize:24,color:'#94a3b8',marginBottom:28}}>ประจำปี 2025</p>
+      <div style={{display:'flex',gap:10,flexWrap:'wrap',justifyContent:'center'}}>
+        {teams.map((t, i) => <span key={i} style={{padding:'6px 16px',borderRadius:20,background:t.color,fontSize:16}}>{t.name}</span>)}
       </div>
     </div>
   );
 
   const Slide1 = () => (
-    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-      <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12,display:'flex',alignItems:'center',gap:8}}><Users size={18} color="#2563eb"/> ภาพรวมทีมงาน</h2>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+      <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16,display:'flex',alignItems:'center',gap:8}}><Users size={24} color="#2563eb"/> ภาพรวมทีมงาน</h2>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
         {teams.map((t, i) => (
-          <div key={i} style={{background:t.color,color:'white',padding:8,borderRadius:8,cursor:'pointer'}} onClick={() => setSlide(2+i)}>
-            <div style={{fontWeight:'bold',fontSize:12}}>{t.name}</div>
-            <div style={{fontSize:12,opacity:0.9}}>หัวหน้า: {t.leader}</div>
-            <div style={{fontSize:12,opacity:0.9}}>สมาชิก: {t.members.length} คน</div>
+          <div key={i} style={{background:t.color,color:'white',padding:12,borderRadius:10,cursor:'pointer'}} onClick={() => setSlide(2+i)}>
+            <div style={{fontWeight:'bold',fontSize:16}}>{t.name}</div>
+            <div style={{fontSize:15,opacity:0.9}}>หัวหน้า: {t.leader}</div>
+            <div style={{fontSize:15,opacity:0.9}}>สมาชิก: {t.members.length} คน</div>
           </div>
         ))}
       </div>
@@ -215,42 +224,42 @@ export default function App() {
   );
 
   const TeamSlide = ({ team }) => (
-    <div style={{height:'100%',background:'white',padding:12,overflow:'auto'}}>
-      <div style={{background:team.color,color:'white',padding:8,borderRadius:8,marginBottom:8}}>
-        <h2 style={{fontSize:18,margin:0}}>{team.name}</h2>
-        <p style={{fontSize:12,margin:0,opacity:0.9}}>หัวหน้าทีม: {team.leader}</p>
+    <div style={{height:'100%',background:'white',padding:16,overflow:'auto'}}>
+      <div style={{background:team.color,color:'white',padding:12,borderRadius:10,marginBottom:12}}>
+        <h2 style={{fontSize:22,margin:0}}>{team.name}</h2>
+        <p style={{fontSize:15,margin:0,opacity:0.9}}>หัวหน้าทีม: {team.leader}</p>
       </div>
-      <div style={{background:'#f8fafc',padding:8,borderRadius:8,marginBottom:8}}>
-        <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>สมาชิก ({team.members.length} คน)</div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
+      <div style={{background:'#f8fafc',padding:12,borderRadius:10,marginBottom:12}}>
+        <div style={{fontSize:16,fontWeight:600,marginBottom:10}}>สมาชิก ({team.members.length} คน)</div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
           {team.members.map((m, i) => {
             const { g, c } = getGrade(m.total);
             return (
-              <div key={i} style={{background:'white',padding:8,borderRadius:4,border:'1px solid #e2e8f0',cursor:'pointer'}} onClick={() => setPerson({...m,teamName:team.name,teamColor:team.color})}>
-                <p style={{fontWeight:500,fontSize:12,margin:0}}>{m.name}</p>
-                <span style={{fontSize:12,color:'#475569'}}>{m.total}/100 </span>
-                <span style={{fontSize:12,fontWeight:'bold',color:c}}>({g})</span>
+              <div key={i} style={{background:'white',padding:10,borderRadius:6,border:'1px solid #e2e8f0',cursor:'pointer'}} onClick={() => setPerson({...m,teamName:team.name,teamColor:team.color})}>
+                <p style={{fontWeight:500,fontSize:15,margin:0}}>{m.name}</p>
+                <span style={{fontSize:14,color:'#475569'}}>{m.total}/100 </span>
+                <span style={{fontSize:14,fontWeight:'bold',color:c}}>({g})</span>
               </div>
             );
           })}
         </div>
       </div>
       {team.hasSales && teamSalesData[team.name] && (
-        <div style={{background:'#f0fdf4',padding:8,borderRadius:8}}>
-          <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>💰 กำไรจากยอดขายปี 2568</div>
+        <div style={{background:'#f0fdf4',padding:12,borderRadius:10}}>
+          <div style={{fontSize:16,fontWeight:600,marginBottom:10}}>💰 กำไรจากยอดขายปี 2568</div>
           <div style={{height:150}}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={months.map((m, i) => ({ month: m, sales: teamSalesData[team.name][i] }))}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" tick={{fontSize:10}} />
-                <YAxis tick={{fontSize:10}} tickFormatter={v => (v/1000000).toFixed(1)+'M'} width={40} />
+                <XAxis dataKey="month" tick={{fontSize:12}} />
+                <YAxis tick={{fontSize:12}} tickFormatter={v => (v/1000000).toFixed(1)+'M'} width={45} />
                 <Tooltip formatter={v => v.toLocaleString() + ' ฿'} />
                 <Line type="monotone" dataKey="sales" stroke="#10b981" strokeWidth={2} dot={{r:3}} />
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div style={{textAlign:'center',marginTop:4}}>
-            <span style={{fontSize:14,fontWeight:'bold',color:'#16a34a'}}>{teamSalesData[team.name].reduce((a,b)=>a+b,0).toLocaleString()} ฿</span>
+          <div style={{textAlign:'center',marginTop:6}}>
+            <span style={{fontSize:17,fontWeight:'bold',color:'#16a34a'}}>{teamSalesData[team.name].reduce((a,b)=>a+b,0).toLocaleString()} ฿</span>
           </div>
         </div>
       )}
@@ -268,17 +277,17 @@ export default function App() {
     }));
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>💰 สรุปกำไรจากยอดขายปี 2568</h2>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+        <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16}}>💰 สรุปกำไรจากยอดขายปี 2568</h2>
         
-        <div style={{background:'white',padding:12,borderRadius:8,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:600,marginBottom:8}}>กำไรรวมทั้งปี</h3>
+        <div style={{background:'white',padding:14,borderRadius:10,marginBottom:12}}>
+          <h3 style={{fontSize:17,fontWeight:600,marginBottom:10}}>กำไรรวมทั้งปี</h3>
           <div style={{height:100}}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salesData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{fontSize:12}} />
-                <YAxis tick={{fontSize:10}} tickFormatter={v => (v/1000000).toFixed(0)+'M'} width={40} />
+                <XAxis dataKey="name" tick={{fontSize:14}} />
+                <YAxis tick={{fontSize:12}} tickFormatter={v => (v/1000000).toFixed(0)+'M'} width={45} />
                 <Tooltip formatter={v => v.toLocaleString() + ' ฿'} />
                 <Bar dataKey="total" radius={[4,4,0,0]}>
                   {salesData.map((e, i) => <Cell key={i} fill={e.color} />)}
@@ -288,31 +297,31 @@ export default function App() {
           </div>
         </div>
 
-        <div style={{display:'flex',gap:6,marginBottom:10}}>
-          <div style={{flex:1,textAlign:'center',padding:10,background:'#dbeafe',borderRadius:8}}>
-            <p style={{fontSize:11,color:'#475569',margin:0}}>ทีมโอเว่น</p>
-            <p style={{fontSize:13,fontWeight:'bold',color:'#2563eb',margin:'4px 0 0'}}>1,776,229.81 ฿</p>
+        <div style={{display:'flex',gap:8,marginBottom:12}}>
+          <div style={{flex:1,textAlign:'center',padding:12,background:'#dbeafe',borderRadius:10}}>
+            <p style={{fontSize:13,color:'#475569',margin:0}}>ทีมโอเว่น</p>
+            <p style={{fontSize:16,fontWeight:'bold',color:'#2563eb',margin:'6px 0 0'}}>1,776,229.81 ฿</p>
           </div>
-          <div style={{flex:1,textAlign:'center',padding:10,background:'#dcfce7',borderRadius:8}}>
-            <p style={{fontSize:11,color:'#475569',margin:0}}>ทีมวุฒิ</p>
-            <p style={{fontSize:13,fontWeight:'bold',color:'#16a34a',margin:'4px 0 0'}}>8,367,231.76 ฿</p>
+          <div style={{flex:1,textAlign:'center',padding:12,background:'#dcfce7',borderRadius:10}}>
+            <p style={{fontSize:13,color:'#475569',margin:0}}>ทีมวุฒิ</p>
+            <p style={{fontSize:16,fontWeight:'bold',color:'#16a34a',margin:'6px 0 0'}}>8,367,231.76 ฿</p>
           </div>
-          <div style={{flex:1,textAlign:'center',padding:10,background:'#f3e8ff',borderRadius:8}}>
-            <p style={{fontSize:11,color:'#475569',margin:0}}>ทีมเกมส์</p>
-            <p style={{fontSize:13,fontWeight:'bold',color:'#9333ea',margin:'4px 0 0'}}>17,652,303.66 ฿</p>
+          <div style={{flex:1,textAlign:'center',padding:12,background:'#f3e8ff',borderRadius:10}}>
+            <p style={{fontSize:13,color:'#475569',margin:0}}>ทีมเกมส์</p>
+            <p style={{fontSize:16,fontWeight:'bold',color:'#9333ea',margin:'6px 0 0'}}>17,652,303.66 ฿</p>
           </div>
         </div>
 
-        <div style={{background:'white',padding:12,borderRadius:8,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:600,marginBottom:8}}>เปรียบเทียบรายเดือน</h3>
+        <div style={{background:'white',padding:14,borderRadius:10,marginBottom:12}}>
+          <h3 style={{fontSize:17,fontWeight:600,marginBottom:10}}>เปรียบเทียบรายเดือน</h3>
           <div style={{height:130}}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" tick={{fontSize:9}} interval={0} />
-                <YAxis tick={{fontSize:9}} tickFormatter={v => (v/1000000).toFixed(1)+'M'} width={35} />
+                <XAxis dataKey="month" tick={{fontSize:11}} interval={0} />
+                <YAxis tick={{fontSize:11}} tickFormatter={v => (v/1000000).toFixed(1)+'M'} width={40} />
                 <Tooltip formatter={v => v.toLocaleString() + ' ฿'} />
-                <Legend wrapperStyle={{fontSize:10}} />
+                <Legend wrapperStyle={{fontSize:12}} />
                 <Bar dataKey="โอเว่น" fill="#3b82f6" />
                 <Bar dataKey="วุฒิ" fill="#10b981" />
                 <Bar dataKey="เกมส์" fill="#a855f7" />
@@ -321,58 +330,56 @@ export default function App() {
           </div>
         </div>
 
-        <div style={{background:'#dcfce7',padding:12,borderRadius:8,textAlign:'center'}}>
-          <p style={{fontSize:12,color:'#475569',margin:0}}>รวมทั้งหมด</p>
-          <p style={{fontSize:24,fontWeight:'bold',color:'#15803d',margin:0}}>27,795,765.23 ฿</p>
+        <div style={{background:'#dcfce7',padding:14,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:14,color:'#475569',margin:0}}>รวมทั้งหมด</p>
+          <p style={{fontSize:28,fontWeight:'bold',color:'#15803d',margin:0}}>27,795,765.23 ฿</p>
         </div>
       </div>
     );
   };
 
-
-
   const WorkSlide = () => {
     const totalSalary = workMembers.reduce((a, m) => a + m.salary, 0);
     const totalBonus = workMembers.reduce((a, m) => a + m.bonus, 0);
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>📅 ตารางอายุงาน</h2>
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:11,borderCollapse:'collapse'}}>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+        <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16}}>📅 ตารางอายุงาน</h2>
+        <div style={{background:'white',borderRadius:10,overflow:'hidden'}}>
+          <table style={{width:'100%',fontSize:13,borderCollapse:'collapse'}}>
             <thead>
               <tr style={{background:'#4f46e5',color:'white'}}>
-                <th style={{padding:6,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:6,textAlign:'right'}}>เงินเดือน</th>
-                <th style={{padding:6,textAlign:'center'}}>เริ่มงาน</th>
-                <th style={{padding:6,textAlign:'center'}}>อายุงาน</th>
-                <th style={{padding:6,textAlign:'right'}}>โบนัส</th>
+                <th style={{padding:8,textAlign:'left'}}>ชื่อ</th>
+                <th style={{padding:8,textAlign:'right'}}>เงินเดือน</th>
+                <th style={{padding:8,textAlign:'center'}}>เริ่มงาน</th>
+                <th style={{padding:8,textAlign:'center'}}>อายุงาน</th>
+                <th style={{padding:8,textAlign:'right'}}>โบนัส</th>
               </tr>
             </thead>
             <tbody>
               {workMembers.map((m, i) => (
                 <tr key={i} style={{background: m.warning ? '#fef2f2' : (i%2===0?'white':'#f8fafc'), border: m.warning ? '2px solid #ef4444' : 'none'}}>
-                  <td style={{padding:6}}>
+                  <td style={{padding:8}}>
                     <div style={{display:'flex',alignItems:'center',gap:4}}>
                       {m.warning && <span>⚠️</span>}
-                      <span style={{fontWeight:500}}>{m.name}</span>
+                      <span style={{fontWeight:500,fontSize:14}}>{m.name}</span>
                     </div>
-                    <div style={{background:m.color,color:'white',padding:'2px 6px',borderRadius:4,fontSize:9,display:'inline-block',marginTop:2}}>{m.team}</div>
+                    <div style={{background:m.color,color:'white',padding:'2px 8px',borderRadius:4,fontSize:11,display:'inline-block',marginTop:2}}>{m.team}</div>
                   </td>
-                  <td style={{padding:6,textAlign:'right',color:'#2563eb',fontWeight:500}}>฿{m.salary.toLocaleString()}</td>
-                  <td style={{padding:6,textAlign:'center'}}>{m.start}</td>
-                  <td style={{padding:6,textAlign:'center'}}>
-                    <span style={{background:m.years>=5?'#f3e8ff':m.years>=3?'#dbeafe':m.years>=1?'#dcfce7':'#ffedd5',color:m.years>=5?'#7c3aed':m.years>=3?'#2563eb':m.years>=1?'#16a34a':'#ea580c',padding:'2px 6px',borderRadius:10,fontSize:10,fontWeight:'bold'}}>{m.years}ปี {m.months}ด.</span>
+                  <td style={{padding:8,textAlign:'right',color:'#2563eb',fontWeight:500,fontSize:14}}>฿{m.salary.toLocaleString()}</td>
+                  <td style={{padding:8,textAlign:'center',fontSize:13}}>{m.start}</td>
+                  <td style={{padding:8,textAlign:'center'}}>
+                    <span style={{background:m.years>=5?'#f3e8ff':m.years>=3?'#dbeafe':m.years>=1?'#dcfce7':'#ffedd5',color:m.years>=5?'#7c3aed':m.years>=3?'#2563eb':m.years>=1?'#16a34a':'#ea580c',padding:'3px 8px',borderRadius:10,fontSize:12,fontWeight:'bold'}}>{m.years}ปี {m.months}ด.</span>
                   </td>
-                  <td style={{padding:6,textAlign:'right',color:'#16a34a',fontWeight:'bold'}}>฿{m.bonus.toLocaleString()}</td>
+                  <td style={{padding:8,textAlign:'right',color:'#16a34a',fontWeight:'bold',fontSize:14}}>฿{m.bonus.toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr style={{background:'#e0e7ff',fontWeight:'bold'}}>
-                <td style={{padding:8}}>รวม</td>
-                <td style={{padding:8,textAlign:'right',color:'#2563eb'}}>฿{totalSalary.toLocaleString()}</td>
+                <td style={{padding:10,fontSize:14}}>รวม</td>
+                <td style={{padding:10,textAlign:'right',color:'#2563eb',fontSize:14}}>฿{totalSalary.toLocaleString()}</td>
                 <td></td><td></td>
-                <td style={{padding:8,textAlign:'right',color:'#16a34a'}}>฿{totalBonus.toLocaleString()}</td>
+                <td style={{padding:10,textAlign:'right',color:'#16a34a',fontSize:14}}>฿{totalBonus.toLocaleString()}</td>
               </tr>
             </tfoot>
           </table>
@@ -380,32 +387,6 @@ export default function App() {
       </div>
     );
   };
-
-  const attendanceData = [
-    { name: 'น้ำ', late: 0, lateMin: 0, sick: 1, personal: 2, vacation: 0, absent: 0 },
-    { name: 'อิ่ม', late: 0, lateMin: 0, sick: 3, personal: 11, vacation: 0, absent: 0 },
-    { name: 'วุฒิ', late: 132, lateMin: 2579, sick: 17, personal: 3, vacation: 3, absent: 2 },
-    { name: 'ปราย', late: 2, lateMin: 5, sick: 1, personal: 1, vacation: 0, absent: 0 },
-    { name: 'ทิว', late: 17, lateMin: 485, sick: 0, personal: 1, vacation: 0, absent: 0 },
-    { name: 'ฟอร์ด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'โอเว่น', late: 1, lateMin: 8, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'แมน', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อู๋', late: 2, lateMin: 9, sick: 6, personal: 0, vacation: 0, absent: 0 },
-    { name: 'เกมส์', late: 85, lateMin: 1225, sick: 0, personal: 0, vacation: 3, absent: 0 },
-    { name: 'เชอรรี่', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 4, absent: 0 },
-    { name: 'เบนซ์', late: 23, lateMin: 125, sick: 0, personal: 5, vacation: 0, absent: 0 },
-    { name: 'องุ่น', late: 1, lateMin: 18, sick: 1, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อ๊อฟ', late: 1, lateMin: 0, sick: 0, personal: 5, vacation: 0, absent: 0 },
-    { name: 'ก็อต', late: 39, lateMin: 565, sick: 1, personal: 4, vacation: 0, absent: 0 },
-    { name: 'ทิพย์', late: 57, lateMin: 442, sick: 2, personal: 0, vacation: 0, absent: 0 },
-    { name: 'พี่ยอด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อุ้ม', late: 50, lateMin: 645, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'ใบตอง', late: 26, lateMin: 535, sick: 6, personal: 3, vacation: 0, absent: 3 },
-    { name: 'เจษ', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'บอส', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'บูม', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'ไปท์', late: 2, lateMin: 11, sick: 0, personal: 0, vacation: 0, absent: 0 }
-  ];
 
   const AttendanceSlide = () => {
     const totalLate = attendanceData.reduce((a, m) => a + m.late, 0);
@@ -421,84 +402,84 @@ export default function App() {
     const topPersonal = [...attendanceData].sort((a, b) => b.personal - a.personal).slice(0, 5).filter(m => m.personal > 0);
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>📊 สถิติขาด ลา มาสาย</h2>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+        <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16}}>📊 สถิติขาด ลา มาสาย</h2>
         
-        <div style={{background:'white',borderRadius:8,overflow:'hidden',marginBottom:10}}>
-          <table style={{width:'100%',fontSize:9,borderCollapse:'collapse'}}>
+        <div style={{background:'white',borderRadius:10,overflow:'hidden',marginBottom:12}}>
+          <table style={{width:'100%',fontSize:11,borderCollapse:'collapse'}}>
             <thead>
               <tr style={{background:'#4f46e5',color:'white'}}>
-                <th style={{padding:5,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:5,textAlign:'center'}}>สาย(วัน)</th>
-                <th style={{padding:5,textAlign:'center'}}>สาย(นาที)</th>
-                <th style={{padding:5,textAlign:'center'}}>ป่วย</th>
-                <th style={{padding:5,textAlign:'center'}}>กิจ</th>
-                <th style={{padding:5,textAlign:'center'}}>พักร้อน</th>
-                <th style={{padding:5,textAlign:'center'}}>ขาด</th>
+                <th style={{padding:6,textAlign:'left',fontSize:13}}>ชื่อ</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>สาย(วัน)</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>สาย(นาที)</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>ป่วย</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>กิจ</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>พักร้อน</th>
+                <th style={{padding:6,textAlign:'center',fontSize:12}}>ขาด</th>
               </tr>
             </thead>
             <tbody>
               {attendanceData.map((m, i) => (
                 <tr key={i} style={{background: i%2===0?'white':'#f8fafc'}}>
-                  <td style={{padding:4,fontWeight:500}}>{m.name}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.late > 50 ? '#fef2f2' : 'transparent', color: m.late > 50 ? '#dc2626' : 'inherit', fontWeight: m.late > 50 ? 'bold' : 'normal'}}>{m.late || '-'}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.lateMin > 500 ? '#fef2f2' : 'transparent', color: m.lateMin > 500 ? '#dc2626' : 'inherit', fontWeight: m.lateMin > 500 ? 'bold' : 'normal'}}>{m.lateMin || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.sick || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.personal || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.vacation || '-'}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.absent > 0 ? '#fef2f2' : 'transparent', color: m.absent > 0 ? '#dc2626' : 'inherit', fontWeight: m.absent > 0 ? 'bold' : 'normal'}}>{m.absent || '-'}</td>
+                  <td style={{padding:6,fontWeight:500,fontSize:13}}>{m.name}</td>
+                  <td style={{padding:6,textAlign:'center',background: m.late > 50 ? '#fef2f2' : 'transparent', color: m.late > 50 ? '#dc2626' : 'inherit', fontWeight: m.late > 50 ? 'bold' : 'normal',fontSize:12}}>{m.late || '-'}</td>
+                  <td style={{padding:6,textAlign:'center',background: m.lateMin > 500 ? '#fef2f2' : 'transparent', color: m.lateMin > 500 ? '#dc2626' : 'inherit', fontWeight: m.lateMin > 500 ? 'bold' : 'normal',fontSize:12}}>{m.lateMin || '-'}</td>
+                  <td style={{padding:6,textAlign:'center',fontSize:12}}>{m.sick || '-'}</td>
+                  <td style={{padding:6,textAlign:'center',fontSize:12}}>{m.personal || '-'}</td>
+                  <td style={{padding:6,textAlign:'center',fontSize:12}}>{m.vacation || '-'}</td>
+                  <td style={{padding:6,textAlign:'center',background: m.absent > 0 ? '#fef2f2' : 'transparent', color: m.absent > 0 ? '#dc2626' : 'inherit', fontWeight: m.absent > 0 ? 'bold' : 'normal',fontSize:12}}>{m.absent || '-'}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr style={{background:'#e0e7ff',fontWeight:'bold'}}>
-                <td style={{padding:6}}>รวม</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalLate}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalLateMin}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalSick}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalPersonal}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalVacation}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalAbsent}</td>
+                <td style={{padding:8,fontSize:13}}>รวม</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalLate}</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalLateMin}</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalSick}</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalPersonal}</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalVacation}</td>
+                <td style={{padding:8,textAlign:'center',fontSize:13}}>{totalAbsent}</td>
               </tr>
             </tfoot>
           </table>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:10}}>
-          <div style={{background:'#fee2e2',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#dc2626',margin:'0 0 6px'}}>🚨 มาสายมากสุด Top 5</p>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
+          <div style={{background:'#fee2e2',padding:10,borderRadius:10}}>
+            <p style={{fontSize:13,fontWeight:'bold',color:'#dc2626',margin:'0 0 8px'}}>🚨 มาสายมากสุด Top 5</p>
             {topLate.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
+              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:12,padding:'3px 0'}}>
                 <span>{i+1}. {m.name}</span>
                 <span style={{fontWeight:'bold'}}>{m.late} วัน ({m.lateMin} นาที)</span>
               </div>
             ))}
           </div>
-          <div style={{background:'#fecaca',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#b91c1c',margin:'0 0 6px'}}>❌ ขาดงาน</p>
+          <div style={{background:'#fecaca',padding:10,borderRadius:10}}>
+            <p style={{fontSize:13,fontWeight:'bold',color:'#b91c1c',margin:'0 0 8px'}}>❌ ขาดงาน</p>
             {topAbsent.length > 0 ? topAbsent.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
+              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:12,padding:'3px 0'}}>
                 <span>{i+1}. {m.name}</span>
                 <span style={{fontWeight:'bold'}}>{m.absent} วัน</span>
               </div>
-            )) : <p style={{fontSize:10,color:'#64748b',margin:0}}>ไม่มี</p>}
+            )) : <p style={{fontSize:12,color:'#64748b',margin:0}}>ไม่มี</p>}
           </div>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-          <div style={{background:'#fef9c3',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#ca8a04',margin:'0 0 6px'}}>🏥 ลาป่วยมากสุด Top 5</p>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+          <div style={{background:'#fef9c3',padding:10,borderRadius:10}}>
+            <p style={{fontSize:13,fontWeight:'bold',color:'#ca8a04',margin:'0 0 8px'}}>🤒 ลาป่วยมากสุด Top 5</p>
             {topSick.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
+              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:12,padding:'3px 0'}}>
                 <span>{i+1}. {m.name}</span>
                 <span style={{fontWeight:'bold'}}>{m.sick} วัน</span>
               </div>
             ))}
           </div>
-          <div style={{background:'#fed7aa',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#ea580c',margin:'0 0 6px'}}>📝 ลากิจมากสุด Top 5</p>
+          <div style={{background:'#fed7aa',padding:10,borderRadius:10}}>
+            <p style={{fontSize:13,fontWeight:'bold',color:'#ea580c',margin:'0 0 8px'}}>📝 ลากิจมากสุด Top 5</p>
             {topPersonal.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
+              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:12,padding:'3px 0'}}>
                 <span>{i+1}. {m.name}</span>
                 <span style={{fontWeight:'bold'}}>{m.personal} วัน</span>
               </div>
@@ -514,17 +495,17 @@ export default function App() {
     const sorted = [...allMembers].sort((a, b) => b.total - a.total);
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>🏆 สรุปคะแนนจากหัวหน้าทีมประเมิน</h2>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+        <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16}}>🏆 สรุปคะแนนจากหัวหน้าทีมประเมิน</h2>
         
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:11,borderCollapse:'collapse'}}>
+        <div style={{background:'white',borderRadius:10,overflow:'hidden'}}>
+          <table style={{width:'100%',fontSize:13,borderCollapse:'collapse'}}>
             <thead>
               <tr style={{background:'#4f46e5',color:'white'}}>
-                <th style={{padding:8,textAlign:'center',width:30}}>#</th>
-                <th style={{padding:8,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:8,textAlign:'center'}}>คะแนน</th>
-                <th style={{padding:8,textAlign:'center'}}>เกรด</th>
+                <th style={{padding:10,textAlign:'center',width:40}}>#</th>
+                <th style={{padding:10,textAlign:'left'}}>ชื่อ</th>
+                <th style={{padding:10,textAlign:'center'}}>คะแนน</th>
+                <th style={{padding:10,textAlign:'center'}}>เกรด</th>
               </tr>
             </thead>
             <tbody>
@@ -532,16 +513,16 @@ export default function App() {
                 const {g, c} = getGrade(m.total);
                 return (
                   <tr key={i} style={{background: i%2===0?'white':'#f8fafc'}}>
-                    <td style={{padding:6,textAlign:'center',fontWeight:'bold',color: i<3 ? '#eab308' : '#64748b'}}>
+                    <td style={{padding:8,textAlign:'center',fontWeight:'bold',color: i<3 ? '#eab308' : '#64748b',fontSize:14}}>
                       {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i+1}
                     </td>
-                    <td style={{padding:6}}>
-                      <div style={{fontWeight:500}}>{m.name}</div>
-                      <div style={{background:m.teamColor,color:'white',padding:'2px 6px',borderRadius:4,fontSize:9,display:'inline-block',marginTop:2}}>{m.teamName}</div>
+                    <td style={{padding:8}}>
+                      <div style={{fontWeight:500,fontSize:15}}>{m.name}</div>
+                      <div style={{background:m.teamColor,color:'white',padding:'2px 8px',borderRadius:4,fontSize:11,display:'inline-block',marginTop:2}}>{m.teamName}</div>
                     </td>
-                    <td style={{padding:6,textAlign:'center',fontWeight:'bold',fontSize:14}}>{m.total}</td>
-                    <td style={{padding:6,textAlign:'center'}}>
-                      <span style={{background: g==='A'?'#dcfce7':g==='B'?'#dbeafe':g==='C'?'#fef9c3':'#fee2e2', color:c, padding:'4px 10px', borderRadius:12, fontWeight:'bold', fontSize:12}}>{g}</span>
+                    <td style={{padding:8,textAlign:'center',fontWeight:'bold',fontSize:17}}>{m.total}</td>
+                    <td style={{padding:8,textAlign:'center'}}>
+                      <span style={{background: g==='A'?'#dcfce7':g==='B'?'#dbeafe':g==='C'?'#fef9c3':'#fee2e2', color:c, padding:'6px 12px', borderRadius:12, fontWeight:'bold', fontSize:14}}>{g}</span>
                     </td>
                   </tr>
                 );
@@ -550,28 +531,28 @@ export default function App() {
           </table>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr',gap:6,marginTop:12}}>
-          <div style={{background:'#dcfce7',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#16a34a',margin:0}}>{allMembers.filter(m=>m.total>=90).length}</p>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>เกรด A</p>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr',gap:8,marginTop:16}}>
+          <div style={{background:'#dcfce7',padding:12,borderRadius:10,textAlign:'center'}}>
+            <p style={{fontSize:24,fontWeight:'bold',color:'#16a34a',margin:0}}>{allMembers.filter(m=>m.total>=90).length}</p>
+            <p style={{fontSize:12,color:'#475569',margin:0}}>เกรด A</p>
           </div>
-          <div style={{background:'#dbeafe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#2563eb',margin:0}}>{allMembers.filter(m=>m.total>=80&&m.total<90).length}</p>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>เกรด B</p>
+          <div style={{background:'#dbeafe',padding:12,borderRadius:10,textAlign:'center'}}>
+            <p style={{fontSize:24,fontWeight:'bold',color:'#2563eb',margin:0}}>{allMembers.filter(m=>m.total>=80&&m.total<90).length}</p>
+            <p style={{fontSize:12,color:'#475569',margin:0}}>เกรด B</p>
           </div>
-          <div style={{background:'#fef9c3',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#ca8a04',margin:0}}>{allMembers.filter(m=>m.total>=70&&m.total<80).length}</p>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>เกรด C</p>
+          <div style={{background:'#fef9c3',padding:12,borderRadius:10,textAlign:'center'}}>
+            <p style={{fontSize:24,fontWeight:'bold',color:'#ca8a04',margin:0}}>{allMembers.filter(m=>m.total>=70&&m.total<80).length}</p>
+            <p style={{fontSize:12,color:'#475569',margin:0}}>เกรด C</p>
           </div>
-          <div style={{background:'#fee2e2',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#dc2626',margin:0}}>{allMembers.filter(m=>m.total<70).length}</p>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>เกรด D-F</p>
+          <div style={{background:'#fee2e2',padding:12,borderRadius:10,textAlign:'center'}}>
+            <p style={{fontSize:24,fontWeight:'bold',color:'#dc2626',margin:0}}>{allMembers.filter(m=>m.total<70).length}</p>
+            <p style={{fontSize:12,color:'#475569',margin:0}}>เกรด D-F</p>
           </div>
         </div>
 
-        <div style={{background:'#e0e7ff',padding:12,borderRadius:8,textAlign:'center',marginTop:12}}>
-          <p style={{fontSize:12,color:'#475569',margin:0}}>คะแนนเฉลี่ยทั้งหมด</p>
-          <p style={{fontSize:24,fontWeight:'bold',color:'#4f46e5',margin:0}}>{Math.round(allMembers.reduce((a,m)=>a+m.total,0)/allMembers.length)}/100</p>
+        <div style={{background:'#e0e7ff',padding:14,borderRadius:10,textAlign:'center',marginTop:16}}>
+          <p style={{fontSize:14,color:'#475569',margin:0}}>คะแนนเฉลี่ยทั้งหมด</p>
+          <p style={{fontSize:28,fontWeight:'bold',color:'#4f46e5',margin:0}}>{Math.round(allMembers.reduce((a,m)=>a+m.total,0)/allMembers.length)}/100</p>
         </div>
       </div>
     );
@@ -585,43 +566,43 @@ export default function App() {
     }));
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>📋 ตารางคะแนนรวมทุกทีม</h2>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+        <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:16}}>📋 ตารางคะแนนรวมทุกทีม</h2>
         
         {allTeamMembers.map((team, ti) => (
-          <div key={ti} style={{marginBottom:16}}>
-            <div style={{background:team.color,color:'white',padding:'6px 12px',borderRadius:'8px 8px 0 0',fontSize:14,fontWeight:'bold'}}>
+          <div key={ti} style={{marginBottom:20}}>
+            <div style={{background:team.color,color:'white',padding:'8px 14px',borderRadius:'10px 10px 0 0',fontSize:16,fontWeight:'bold'}}>
               {team.name}
             </div>
-            <div style={{background:'white',borderRadius:'0 0 8px 8px',overflow:'hidden',border:`2px solid ${team.color}`,borderTop:'none'}}>
-              <table style={{width:'100%',fontSize:10,borderCollapse:'collapse'}}>
+            <div style={{background:'white',borderRadius:'0 0 10px 10px',overflow:'hidden',border:`2px solid ${team.color}`,borderTop:'none'}}>
+              <table style={{width:'100%',fontSize:12,borderCollapse:'collapse'}}>
                 <thead>
                   <tr style={{background:'#f1f5f9'}}>
-                    <th style={{padding:4,textAlign:'left',borderBottom:'1px solid #e2e8f0'}}>หัวข้อ</th>
+                    <th style={{padding:6,textAlign:'left',borderBottom:'1px solid #e2e8f0',fontSize:13}}>หัวข้อ</th>
                     {team.members.map((m, i) => (
-                      <th key={i} style={{padding:4,textAlign:'center',borderBottom:'1px solid #e2e8f0',minWidth:40}}>{m.name.substring(0,6)}</th>
+                      <th key={i} style={{padding:6,textAlign:'center',borderBottom:'1px solid #e2e8f0',minWidth:50,fontSize:12}}>{m.name.substring(0,6)}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {criteria.map((c, ci) => (
                     <tr key={ci} style={{background:ci%2===0?'white':'#fafafa'}}>
-                      <td style={{padding:4,fontSize:9,borderBottom:'1px solid #f1f5f9'}}>{c.length > 15 ? c.substring(0,15)+'...' : c}</td>
+                      <td style={{padding:6,fontSize:11,borderBottom:'1px solid #f1f5f9'}}>{c.length > 18 ? c.substring(0,18)+'...' : c}</td>
                       {team.members.map((m, mi) => {
                         const score = m.scores[ci];
                         const isLow = score < 8;
                         return (
-                          <td key={mi} style={{padding:4,textAlign:'center',borderBottom:'1px solid #f1f5f9',background:isLow?'#fef2f2':'transparent',color:isLow?'#dc2626':'#2563eb',fontWeight:500}}>{score}</td>
+                          <td key={mi} style={{padding:6,textAlign:'center',borderBottom:'1px solid #f1f5f9',background:isLow?'#fef2f2':'transparent',color:isLow?'#dc2626':'#2563eb',fontWeight:500,fontSize:12}}>{score}</td>
                         );
                       })}
                     </tr>
                   ))}
                   <tr style={{background:team.color+'20',fontWeight:'bold'}}>
-                    <td style={{padding:6}}>รวม</td>
+                    <td style={{padding:8,fontSize:13}}>รวม</td>
                     {team.members.map((m, mi) => {
                       const {g, c} = getGrade(m.total);
                       return (
-                        <td key={mi} style={{padding:6,textAlign:'center',color:c}}>{m.total} ({g})</td>
+                        <td key={mi} style={{padding:8,textAlign:'center',color:c,fontSize:13}}>{m.total} ({g})</td>
                       );
                     })}
                   </tr>
@@ -991,3 +972,4 @@ export default function App() {
     </div>
   );
 }
+
