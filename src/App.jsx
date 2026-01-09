@@ -1075,15 +1075,7 @@ const AttendanceSlide = () => {
           </div>
         ))}
 
-        <div style={{background:'linear-gradient(to right,#fbbf24,#f59e0b)',borderRadius:8,padding:12,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>🌟 รางวัลผลงานโดดเด่นด้านการขาย</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>สมาชิกทีมขายทุกคนที่ร่วมสร้างกำไรให้องค์กร</p>
-          <div style={{background:'rgba(255,255,255,0.2)',padding:8,borderRadius:6}}>
-            <p style={{fontSize:11,color:'white',margin:'0 0 4px'}}>🎁 รางวัล: KPI รวม 0.1% ของกำไรตลอดปี</p>
-            <p style={{fontSize:18,fontWeight:'bold',color:'white',margin:0}}>= ฿{kpiBonus.toLocaleString(undefined,{maximumFractionDigits:2})}</p>
-            <p style={{fontSize:9,color:'rgba(255,255,255,0.8)',margin:'4px 0 0'}}>(จากกำไรรวม ฿{totalProfit.toLocaleString()})</p>
-          </div>
-        </div>
+      
 
         <div style={{background:'linear-gradient(to right,#ec4899,#be185d)',borderRadius:8,padding:12,marginBottom:10}}>
           <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>💎 รางวัลผลงานโดดเด่นด้านความตั้งใจ มุ่งมานะ</h3>
@@ -1189,6 +1181,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
