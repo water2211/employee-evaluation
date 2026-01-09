@@ -45,29 +45,29 @@ const teams = [
 ];
 
 const workMembers = [
-  { name: 'น้ำ', team: 'MD', color: '#0d9488', start: '03-05-2020', years: 5, months: 8, salary: 43923, bonus: 219615 },
-  { name: 'อิ่ม', team: 'Office', color: '#0d9488', start: '05-07-2020', years: 5, months: 6, salary: 32802, bonus: 164010 },
-  { name: 'วุฒิ', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2021', years: 4, months: 4, salary: 21961.50, bonus: 87846 },
-  { name: 'เกมส์', team: 'หัวหน้าทีม', color: '#475569', start: '19-09-2022', years: 3, months: 3, salary: 19965, bonus: 59895 },
-  { name: 'ทิว', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2023', years: 2, months: 4, salary: 18150, bonus: 36300 },
-  { name: 'โอเว่น', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2023', years: 2, months: 4, salary: 18150, bonus: 36300 },
-  { name: 'ก็อต', team: 'หัวหน้าทีม', color: '#475569', start: '27-02-2024', years: 1, months: 10, salary: 16500, bonus: 16500 },
-  { name: 'แมน', team: 'ทีมโอเว่น', color: '#3b82f6', start: '10-03-2024', years: 1, months: 9, salary: 15000, bonus: 15000, warning: true },
-  { name: 'เชอรรี่', team: 'ทีมเกมส์', color: '#a855f7', start: '20-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
-  { name: 'อ๊อฟ', team: 'ทีมเกมส์', color: '#a855f7', start: '25-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
-  { name: 'ฟอร์ด', team: 'ทีมวุฒิ', color: '#10b981', start: '24-08-2024', years: 1, months: 4, salary: 10300, bonus: 10300 },
-  { name: 'ปะจิ', team: 'ทีมเกมส์', color: '#a855f7', start: '19-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
-  { name: 'เบนซ์', team: 'ทีมเกมส์', color: '#a855f7', start: '20-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500, warning: true },
-  { name: 'ใบตอง', team: 'ทีมเกมส์', color: '#a855f7', start: '19-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
-  { name: 'ปาย', team: 'ทีมก็อต', color: '#f97316', start: '05-09-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
-  { name: 'องุ่น', team: 'ทีมวุฒิ', color: '#10b981', start: '21-12-2024', years: 1, months: 0, salary: 15000, bonus: 7500 },
-  { name: 'ทิพย์', team: 'ทีมก็อต', color: '#f97316', start: '16-02-2025', years: 0, months: 10, salary: 15000, bonus: 7500 },
-  { name: 'ยอด', team: 'ทีมก็อต', color: '#f97316', start: '03-02-2025', years: 0, months: 11, salary: 15000, bonus: 7500 },
-  { name: 'เจษ', team: 'ทีมโอเว่น', color: '#3b82f6', start: '01-03-2025', years: 0, months: 10, salary: 15000, bonus: 7500 },
-  { name: 'อุ้ม', team: 'ทีมก็อต', color: '#f97316', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
-  { name: 'บอส', team: 'ทีมทิว', color: '#f43f5e', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
-  { name: 'บูม', team: 'ทีมทิว', color: '#f43f5e', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
-  { name: 'ปอ', team: 'ทีมโอเว่น', color: '#3b82f6', start: '05-07-2025', years: 0, months: 6, salary: 15000, bonus: 7500 },
+  { name: 'น้ำ บุษกร พิมพ์ดี', team: 'MD', color: '#0d9488', start: '03-05-2020', years: 5, months: 8, salary: 43923, bonus: 219615 },
+  { name: 'อิ่ม พรศิริ เกษมณี', team: 'Office', color: '#0d9488', start: '05-07-2020', years: 5, months: 6, salary: 32802, bonus: 164010 },
+  { name: 'วุฒิ พลนิกร	สีใส', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2021', years: 4, months: 4, salary: 21961.50, bonus: 87846 },
+  { name: 'เกมส์ ธีรศักดิ์	เลิศและ', team: 'หัวหน้าทีม', color: '#475569', start: '19-09-2022', years: 3, months: 3, salary: 19965, bonus: 59895 },
+  { name: 'ทิว ธีรศักดิ์	วิชัยคำจร', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2023', years: 2, months: 4, salary: 18150, bonus: 36300 },
+  { name: 'โอเว่น ธัชพรรณ	จันทราช', team: 'หัวหน้าทีม', color: '#475569', start: '01-09-2023', years: 2, months: 4, salary: 18150, bonus: 36300 },
+  { name: 'ก็อต ธนรัชฎ์	จวงแบ้', team: 'หัวหน้าทีม', color: '#475569', start: '27-02-2024', years: 1, months: 10, salary: 16500, bonus: 16500 },
+  { name: 'แมน ชาญชัย	แน่นอุดร', team: 'ทีมโอเว่น', color: '#3b82f6', start: '10-03-2024', years: 1, months: 9, salary: 15000, bonus: 15000, warning: true },
+  { name: 'เชอรรี่ วนิดา	วิเชียร์ศาสตร์', team: 'ทีมเกมส์', color: '#a855f7', start: '20-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
+  { name: 'อ๊อฟ สุทธิพงศ์	ละครบุญ', team: 'ทีมเกมส์', color: '#a855f7', start: '25-04-2024', years: 1, months: 8, salary: 16500, bonus: 16500 },
+  { name: 'ฟอร์ด ธวัชชัย	ภูสีเขียว', team: 'ทีมวุฒิ', color: '#10b981', start: '24-08-2024', years: 1, months: 4, salary: 10300, bonus: 10300 },
+  { name: 'ปะจิ ปฏิภาณ	ทุมมานอก', team: 'ทีมเกมส์', color: '#a855f7', start: '19-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
+  { name: 'เบนซ์ ทศทิศ	บรรเรืองทอง', team: 'ทีมเกมส์', color: '#a855f7', start: '20-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500, warning: true },
+  { name: 'ใบตอง พรกนก	ปัถพี', team: 'ทีมเกมส์', color: '#a855f7', start: '19-08-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
+  { name: 'ปาย ณัฐพงษ์	สาริยา', team: 'ทีมก็อต', color: '#f97316', start: '05-09-2024', years: 1, months: 4, salary: 16500, bonus: 16500 },
+  { name: 'องุ่น วราพร	ศิริเขียว', team: 'ทีมวุฒิ', color: '#10b981', start: '21-12-2024', years: 1, months: 0, salary: 15000, bonus: 7500 },
+  { name: 'ทิพย์ สุธารส	พรมปากดี', team: 'ทีมก็อต', color: '#f97316', start: '16-02-2025', years: 0, months: 10, salary: 15000, bonus: 7500 },
+  { name: 'ยอด ยอดชาย	สวัสศรี', team: 'ทีมก็อต', color: '#f97316', start: '03-02-2025', years: 0, months: 11, salary: 15000, bonus: 7500 },
+  { name: 'เจษ เจษฎา	มาตเรียง', team: 'ทีมโอเว่น', color: '#3b82f6', start: '01-03-2025', years: 0, months: 10, salary: 15000, bonus: 7500 },
+  { name: 'อุ้ม ณรงค์เกียรติ	น้อยมะลิวัน', team: 'ทีมก็อต', color: '#f97316', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
+  { name: 'บอส ธนากร	ภูขาว', team: 'ทีมทิว', color: '#f43f5e', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
+  { name: 'บูม บริภัค	เนียมเปี่ยม', team: 'ทีมทิว', color: '#f43f5e', start: '01-04-2025', years: 0, months: 9, salary: 15000, bonus: 7500 },
+  { name: 'ปอ ธาดา	พงค์ธัญญะดิลก', team: 'ทีมโอเว่น', color: '#3b82f6', start: '05-07-2025', years: 0, months: 6, salary: 15000, bonus: 7500 },
   { name: 'ไปป์', team: 'ทีมโอเว่น', color: '#3b82f6', start: '10-11-2025', years: 0, months: 1, salary: 13500, bonus: 0 }
 ];
 
@@ -875,101 +875,157 @@ const AttendanceSlide = () => {
 
 
   const OTSlide = () => {
-    const otData = [
-      { name: 'เชอร์รี่', ot1: 292, ot2: 12, total: 304 },
-      { name: 'โอเว่น', ot1: 193, ot2: 7, total: 200 },
-      { name: 'ก็อต', ot1: 114, ot2: 22, total: 136 },
-      { name: 'ใบตอง', ot1: 118, ot2: 18, total: 136 },
-      { name: 'เบนซ์', ot1: 116, ot2: 3, total: 119 },
-      { name: 'วุฒิ', ot1: 107, ot2: 6, total: 113 },
-      { name: 'อู๋', ot1: 90, ot2: 21, total: 111 },
-      { name: 'พี่ยอด', ot1: 73, ot2: 38, total: 111 },
-      { name: 'เกมส์', ot1: 94, ot2: 7, total: 101 },
-      { name: 'อ๊อฟ', ot1: 74, ot2: 18, total: 92 },
-      { name: 'อุ๋ม', ot1: 69, ot2: 21, total: 90 },
-      { name: 'บูม', ot1: 54, ot2: 34, total: 88 },
-      { name: 'บอส', ot1: 54, ot2: 34, total: 88 },
-      { name: 'องุ่น', ot1: 68, ot2: 9, total: 77 },
-      { name: 'ทิพย์', ot1: 52, ot2: 22, total: 74 },
-      { name: 'ฟอร์ด', ot1: 67, ot2: 2, total: 69 },
-      { name: 'เจษ', ot1: 24, ot2: 32, total: 56 },
-      { name: 'ทิว', ot1: 40, ot2: 7, total: 47 },
-      { name: 'ปราย', ot1: 30, ot2: 4, total: 34 },
-      { name: 'แมน', ot1: 15, ot2: 4, total: 19 }
-    ].sort((a, b) => b.total - a.total);
+  const otData = [
+    { name: 'เชอร์รี่', ot1: 292, ot2: 12, total: 304 },
+    { name: 'โอเว่น', ot1: 193, ot2: 7, total: 200 },
+    { name: 'ก็อต', ot1: 114, ot2: 22, total: 136 },
+    { name: 'ใบตอง', ot1: 118, ot2: 18, total: 136 },
+    { name: 'เบนซ์', ot1: 116, ot2: 3, total: 119 },
+    { name: 'วุฒิ', ot1: 107, ot2: 6, total: 113 },
+    { name: 'อู๋', ot1: 90, ot2: 21, total: 111 },
+    { name: 'พี่ยอด', ot1: 73, ot2: 38, total: 111 },
+    { name: 'เกมส์', ot1: 94, ot2: 7, total: 101 },
+    { name: 'อ๊อฟ', ot1: 74, ot2: 18, total: 92 },
+    { name: 'อุ๋ม', ot1: 69, ot2: 21, total: 90 },
+    { name: 'บูม', ot1: 54, ot2: 34, total: 88 },
+    { name: 'บอส', ot1: 54, ot2: 34, total: 88 },
+    { name: 'องุ่น', ot1: 68, ot2: 9, total: 77 },
+    { name: 'ทิพย์', ot1: 52, ot2: 22, total: 74 },
+    { name: 'ฟอร์ด', ot1: 67, ot2: 2, total: 69 },
+    { name: 'เจษ', ot1: 24, ot2: 32, total: 56 },
+    { name: 'ทิว', ot1: 40, ot2: 7, total: 47 },
+    { name: 'ปราย', ot1: 30, ot2: 4, total: 34 },
+    { name: 'แมน', ot1: 15, ot2: 4, total: 19 }
+  ].sort((a, b) => b.total - a.total);
 
-    const totalOT = otData.reduce((a, b) => a + b.total, 0);
-    const top5 = otData.slice(0, 5);
+  const totalOT = otData.reduce((a, b) => a + b.total, 0);
+  const top5 = otData.slice(0, 5);
 
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,paddingBottom: 130,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:8}}>⏰ สรุป OT สะสม 12 เดือน (ม.ค.–ธ.ค. 2568)</h2>
-        
-        <div style={{background:'#fef3c7',padding:10,borderRadius:8,marginBottom:10}}>
-          <p style={{fontSize:12,fontWeight:'bold',color:'#92400e',margin:'0 0 8px'}}>🏆 Top 5 OT สูงสุด</p>
-          <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
-            {top5.map((m, i) => (
-              <div key={i} style={{background:i===0?'#fbbf24':i===1?'#9ca3af':i===2?'#cd7c2f':'white',color:i<3?'white':'#1e293b',padding:'6px 12px',borderRadius:20,fontSize:11,fontWeight:'bold',display:'flex',alignItems:'center',gap:4}}>
-                <span>{i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`}</span>
-                <span>{m.name}</span>
-                <span style={{background:'rgba(0,0,0,0.2)',padding:'2px 6px',borderRadius:10,fontSize:10}}>{m.total} ชม.</span>
-              </div>
-            ))}
-          </div>
-        </div>
+  return (
+    <div
+      style={{
+        height: '100%',
+        background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',
+        padding: 16,
+        paddingBottom: 130,
+        overflow: 'auto'
+      }}
+    >
+      <h2 style={{ fontSize: 24, fontWeight: 'bold', color: '#1e293b', marginBottom: 12 }}>
+        ⏰ สรุป OT สะสม 12 เดือน (ม.ค.–ธ.ค. 2568)
+      </h2>
 
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:10,borderCollapse:'collapse'}}>
-            <thead>
-              <tr style={{background:'#f59e0b',color:'white'}}>
-                <th style={{padding:6,textAlign:'center',width:30}}>#</th>
-                <th style={{padding:6,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:6,textAlign:'right'}}>OT ปกติ</th>
-                <th style={{padding:6,textAlign:'right'}}>OT พิเศษ</th>
-                <th style={{padding:6,textAlign:'right',background:'#d97706'}}>รวม (ชม.)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {otData.map((m, i) => (
-                <tr key={i} style={{background: i<5 ? '#fffbeb' : i%2===0?'white':'#f8fafc'}}>
-                  <td style={{padding:5,textAlign:'center',fontWeight:'bold',color:i<3?'#f59e0b':'#64748b'}}>
-                    {i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}
-                  </td>
-                  <td style={{padding:5,fontWeight:i<5?'bold':'normal'}}>{m.name}</td>
-                  <td style={{padding:5,textAlign:'right',color:'#2563eb'}}>{m.ot1} ชม.</td>
-                  <td style={{padding:5,textAlign:'right',color:'#7c3aed'}}>{m.ot2} ชม.</td>
-                  <td style={{padding:5,textAlign:'right',fontWeight:'bold',color:'#d97706',background:'#fef3c7'}}>{m.total} ชม.</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr style={{background:'#f59e0b',color:'white',fontWeight:'bold'}}>
-                <td style={{padding:8}} colSpan={2}>รวมทั้งหมด</td>
-                <td style={{padding:8,textAlign:'right'}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</td>
-                <td style={{padding:8,textAlign:'right'}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</td>
-                <td style={{padding:8,textAlign:'right',background:'#d97706'}}>{totalOT} ชม.</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+      <div style={{ background: '#fef3c7', padding: 14, borderRadius: 12, marginBottom: 14, border: '1px solid #fde68a' }}>
+        <p style={{ fontSize: 16, fontWeight: 'bold', color: '#92400e', margin: '0 0 10px' }}>
+          🏆 Top 5 OT สูงสุด
+        </p>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginTop:10}}>
-          <div style={{background:'#dbeafe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT ปกติรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#2563eb',margin:0}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</p>
-          </div>
-          <div style={{background:'#ede9fe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT พิเศษรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#7c3aed',margin:0}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</p>
-          </div>
-          <div style={{background:'#fef3c7',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT รวมทั้งหมด</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#d97706',margin:0}}>{totalOT} ชม.</p>
-          </div>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          {top5.map((m, i) => (
+            <div
+              key={i}
+              style={{
+                background: i === 0 ? '#fbbf24' : i === 1 ? '#9ca3af' : i === 2 ? '#cd7c2f' : 'white',
+                color: i < 3 ? 'white' : '#1e293b',
+                padding: '10px 14px',
+                borderRadius: 22,
+                fontSize: 14,
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                border: i < 3 ? 'none' : '1px solid #e2e8f0'
+              }}
+            >
+              <span style={{ fontSize: 16 }}>{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`}</span>
+              <span>{m.name}</span>
+              <span style={{ background: 'rgba(0,0,0,0.18)', padding: '4px 10px', borderRadius: 14, fontSize: 13 }}>
+                {m.total} ชม.
+              </span>
+            </div>
+          ))}
         </div>
       </div>
-    );
-  };
+
+      <div style={{ background: 'white', borderRadius: 12, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+        <table style={{ width: '100%', fontSize: 14, borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#f59e0b', color: 'white' }}>
+              <th style={{ padding: 12, textAlign: 'center', width: 46, fontSize: 14 }}>#</th>
+              <th style={{ padding: 12, textAlign: 'left', fontSize: 14 }}>ชื่อ</th>
+              <th style={{ padding: 12, textAlign: 'right', fontSize: 14, whiteSpace: 'nowrap' }}>OT ปกติ</th>
+              <th style={{ padding: 12, textAlign: 'right', fontSize: 14, whiteSpace: 'nowrap' }}>OT พิเศษ</th>
+              <th style={{ padding: 12, textAlign: 'right', background: '#d97706', fontSize: 14, whiteSpace: 'nowrap' }}>รวม (ชม.)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {otData.map((m, i) => (
+              <tr key={i} style={{ background: i < 5 ? '#fffbeb' : i % 2 === 0 ? 'white' : '#f8fafc' }}>
+                <td style={{ padding: 10, textAlign: 'center', fontWeight: 'bold', color: i < 3 ? '#f59e0b' : '#64748b', fontSize: 14 }}>
+                  {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}
+                </td>
+
+                <td style={{ padding: 10, fontWeight: i < 5 ? 800 : 600, fontSize: 14 }}>{m.name}</td>
+
+                <td style={{ padding: 10, textAlign: 'right', color: '#2563eb', fontWeight: 700, whiteSpace: 'nowrap' }}>
+                  {m.ot1} ชม.
+                </td>
+
+                <td style={{ padding: 10, textAlign: 'right', color: '#7c3aed', fontWeight: 700, whiteSpace: 'nowrap' }}>
+                  {m.ot2} ชม.
+                </td>
+
+                <td style={{ padding: 10, textAlign: 'right', fontWeight: 900, color: '#d97706', background: '#fef3c7', whiteSpace: 'nowrap' }}>
+                  {m.total} ชม.
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+          <tfoot>
+            <tr style={{ background: '#f59e0b', color: 'white', fontWeight: 'bold' }}>
+              <td style={{ padding: 12, fontSize: 15 }} colSpan={2}>รวมทั้งหมด</td>
+              <td style={{ padding: 12, textAlign: 'right', fontSize: 15, whiteSpace: 'nowrap' }}>
+                {otData.reduce((a, b) => a + b.ot1, 0)} ชม.
+              </td>
+              <td style={{ padding: 12, textAlign: 'right', fontSize: 15, whiteSpace: 'nowrap' }}>
+                {otData.reduce((a, b) => a + b.ot2, 0)} ชม.
+              </td>
+              <td style={{ padding: 12, textAlign: 'right', background: '#d97706', fontSize: 15, whiteSpace: 'nowrap' }}>
+                {totalOT} ชม.
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginTop: 14 }}>
+        <div style={{ background: '#dbeafe', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>OT ปกติรวม</p>
+          <p style={{ fontSize: 20, fontWeight: 'bold', color: '#2563eb', margin: 0 }}>
+            {otData.reduce((a, b) => a + b.ot1, 0)} ชม.
+          </p>
+        </div>
+
+        <div style={{ background: '#ede9fe', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>OT พิเศษรวม</p>
+          <p style={{ fontSize: 20, fontWeight: 'bold', color: '#7c3aed', margin: 0 }}>
+            {otData.reduce((a, b) => a + b.ot2, 0)} ชม.
+          </p>
+        </div>
+
+        <div style={{ background: '#fef3c7', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>OT รวมทั้งหมด</p>
+          <p style={{ fontSize: 20, fontWeight: 'bold', color: '#d97706', margin: 0 }}>
+            {totalOT} ชม.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
   const AwardsSlide = () => {
     const totalProfit = 27795765.23;
@@ -1133,6 +1189,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
