@@ -84,7 +84,7 @@ export default function App() {
     return { g: 'F', c: '#dc2626' };
   };
 
- const PersonModal = () => {
+const PersonModal = () => {
   if (!person) return null;
   const { g, c } = getGrade(person.total);
 
@@ -122,11 +122,15 @@ export default function App() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              marginBottom: 4
+              marginBottom: 4,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6
             }}
           >
             <ArrowLeft size={16} /> กลับ
           </button>
+
           <h2 style={{ color: 'white', margin: 0, fontSize: 20 }}>{person.name}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', margin: 0, fontSize: 12 }}>{person.teamName}</p>
         </div>
@@ -137,6 +141,7 @@ export default function App() {
               <p style={{ fontSize: 12, color: '#64748b', margin: 0 }}>คะแนน</p>
               <p style={{ fontSize: 24, fontWeight: 'bold', color: '#2563eb', margin: 0 }}>{person.total}</p>
             </div>
+
             <div style={{ flex: 1, background: '#f0fdf4', padding: 12, borderRadius: 8, textAlign: 'center' }}>
               <p style={{ fontSize: 12, color: '#64748b', margin: 0 }}>เกรด</p>
               <p style={{ fontSize: 24, fontWeight: 'bold', color: c, margin: 0 }}>{g}</p>
@@ -145,9 +150,11 @@ export default function App() {
 
           <div style={{ background: '#f8fafc', padding: 12, borderRadius: 8, marginBottom: 12 }}>
             <h3 style={{ fontSize: 14, margin: '0 0 8px' }}>รายละเอียดคะแนน</h3>
+
             {criteria.map((cr, i) => {
               const sc = person.scores[i];
               const low = sc < 8;
+
               return (
                 <div
                   key={i}
@@ -168,39 +175,48 @@ export default function App() {
             })}
           </div>
 
-          {/* ✅ หมายเหตุแบบอ่านง่าย (เว้นบรรทัด) */}
+          {/* ✅ หมายเหตุ (กล่องสวย + ไม่หลุดกรอบ) */}
           <div style={{ background: '#fefce8', padding: 14, borderRadius: 12 }}>
             <h3 style={{ fontSize: 16, margin: '0 0 10px' }}>หมายเหตุ</h3>
 
-            <ul
+            <div
               style={{
-                margin: 0,
-                paddingLeft: 18,
                 background: 'white',
-                padding: 12,
                 borderRadius: 10,
-                color: '#475569',
-                fontSize: 13,
-                lineHeight: 1.7
+                padding: 12,
+                width: '100%',
+                boxSizing: 'border-box',
+                border: '1px solid #e2e8f0'
               }}
             >
-              {(person.review || '-')
-                .split('\n')
-                .map((s) => s.trim())
-                .filter(Boolean)
-                .map((line, idx) => (
-                  <li key={idx} style={{ marginBottom: 8 }}>
-                    {line.replace(/^•\s?/, '')}
-                  </li>
-                ))}
-            </ul>
+              <ul
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  listStyleType: 'disc',
+                  listStylePosition: 'inside',
+                  color: '#334155',
+                  fontSize: 13,
+                  lineHeight: 1.75
+                }}
+              >
+                {(person.review || '-')
+                  .split('\n')
+                  .map((s) => s.trim())
+                  .filter(Boolean)
+                  .map((line, idx) => (
+                    <li key={idx} style={{ marginBottom: 8 }}>
+                      {line.replace(/^•\s?/, '')}
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
   const Slide0 = () => (
     <div style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',background:'linear-gradient(to bottom right,#0f172a,#1e293b)',color:'white',padding:24}}>
       <div style={{fontSize:48,marginBottom:16}}>📊</div>
@@ -1004,6 +1020,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
