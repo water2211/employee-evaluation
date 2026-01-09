@@ -615,361 +615,333 @@ export default function App() {
     );
   };
 
-  const BonusCalcSlide = () => {
-    const calcBonus = (m) => {
-      const att = attendanceData.find(a => a.name === m.name || m.name.includes(a.name) || a.name.includes(m.name.split(' ')[0])) || { late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 };
-      const totalMonths = m.years * 12 + m.months;
-      let bonusMonths = 0;
-      if (totalMonths < 6) bonusMonths = 0.5;
-      else if (totalMonths < 12) bonusMonths = 0.5;
-      else if (totalMonths < 24) bonusMonths = 1;
-      else if (totalMonths < 48) bonusMonths = 2.5;
-      else if (totalMonths < 60) bonusMonths = 4;
-      else bonusMonths = 5;
-      const baseBonus = m.salary * bonusMonths;
-      const dailyWage = m.salary / 30;
-      const isExempt = m.name === 'น้ำ' || m.name === 'อิ่ม';
-      const lateDed = isExempt ? 0 : att.lateMin * 1;
-      const absentDed = isExempt ? 0 : att.absent * dailyWage * 5;
-      const personalDed = isExempt ? 0 : att.personal * dailyWage * 3;
-      const sickDed = isExempt ? 0 : att.sick * dailyWage * 1;
-      const totalDed = lateDed + absentDed + personalDed + sickDed;
-      const netBonus = Math.max(0, baseBonus - totalDed);
-      const isPerfect = att.lateMin === 0 && att.absent === 0 && att.personal === 0 && att.sick === 0;
-      return { baseBonus, lateDed, absentDed, personalDed, sickDed, totalDed, netBonus, bonusMonths, att, isPerfect };
-    };
-
-    const bonusData = workMembers.map(m => ({ ...m, ...calcBonus(m) }));
-    const totalBase = bonusData.reduce((a, b) => a + b.baseBonus, 0);
-    const totalDed = bonusData.reduce((a, b) => a + b.totalDed, 0);
-    const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
-
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:8}}>💵 คำนวณโบนัสสุทธิ</h2>
-        <div style={{background:'#e0e7ff',padding:8,borderRadius:8,marginBottom:8,fontSize:9}}>
-          <strong>เงื่อนไขโบนัส:</strong> &lt;6ด.=0.5เดือน | 6ด.-1ปี=0.5เดือน | 1-2ปี=1เดือน | 2-4ปี=2.5เดือน | 4-5ปี=4เดือน | 5ปี+=5เดือน<br/>
-          <strong>หักลด:</strong> สาย=1฿/นาที | ขาด=ค่าแรงx5/วัน | ลากิจ=ค่าแรงx3/วัน | ลาป่วย=ค่าแรงx1/วัน
-        </div>
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:9,borderCollapse:'collapse'}}>
-            <thead>
-              <tr style={{background:'#7c3aed',color:'white'}}>
-                <th style={{padding:4,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:4,textAlign:'center'}}>อายุงาน</th>
-                <th style={{padding:4,textAlign:'right'}}>โบนัสเดิม</th>
-                <th style={{padding:4,textAlign:'right'}}>หักสาย</th>
-                <th style={{padding:4,textAlign:'right'}}>หักขาด</th>
-                <th style={{padding:4,textAlign:'right'}}>หักกิจ</th>
-                <th style={{padding:4,textAlign:'right'}}>หักป่วย</th>
-                <th style={{padding:4,textAlign:'right',background:'#16a34a'}}>โบนัสสุทธิ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bonusData.map((m, i) => (
-                <tr key={i} style={{background: m.warning ? '#fef2f2' : m.isPerfect ? '#f0fdf4' : i%2===0?'white':'#f8fafc', border: m.warning ? '2px solid #ef4444' : 'none'}}>
-                  <td style={{padding:4}}>
-                    {m.warning && <span>⚠️</span>}
-                    <span style={{fontWeight:500}}>{m.name}</span>
-                    {m.isPerfect && <span style={{marginLeft:4}}>⭐</span>}
-                    <div style={{background:m.color,color:'white',padding:'1px 4px',borderRadius:4,fontSize:8,display:'inline-block',marginLeft:4}}>{m.team}</div>
-                  </td>
-                  <td style={{padding:4,textAlign:'center',fontSize:8}}>{m.years}ปี{m.months}ด. ({m.bonusMonths}ด.)</td>
-                  <td style={{padding:4,textAlign:'right',color:'#2563eb'}}>฿{m.baseBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.lateDed>0?'#dc2626':'#9ca3af'}}>{m.lateDed>0?`-฿${m.lateDed.toLocaleString()}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.absentDed>0?'#dc2626':'#9ca3af'}}>{m.absentDed>0?`-฿${m.absentDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.personalDed>0?'#dc2626':'#9ca3af'}}>{m.personalDed>0?`-฿${m.personalDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.sickDed>0?'#dc2626':'#9ca3af'}}>{m.sickDed>0?`-฿${m.sickDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',fontWeight:'bold',color:'#16a34a',background:'#f0fdf4'}}>฿{m.netBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr style={{background:'#7c3aed',color:'white',fontWeight:'bold'}}>
-                <td style={{padding:6}} colSpan={2}>รวมทั้งหมด</td>
-                <td style={{padding:6,textAlign:'right'}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                <td style={{padding:6}} colSpan={4} style={{textAlign:'center',color:'#fca5a5'}}>หักรวม: ฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                <td style={{padding:6,textAlign:'right',background:'#16a34a'}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginTop:10}}>
-          <div style={{background:'#dbeafe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>โบนัสเดิมรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#2563eb',margin:0}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-          <div style={{background:'#fee2e2',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>หักลดรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#dc2626',margin:0}}>-฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-          <div style={{background:'#dcfce7',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>โบนัสสุทธิรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#16a34a',margin:0}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-        </div>
-        <div style={{marginTop:8,fontSize:9,color:'#64748b'}}>⭐ = ไม่ขาด ไม่ลา ไม่สาย รับโบนัสเต็ม</div>
-      </div>
-    );
+const BonusCalcSlide = () => {
+  const calcBonus = (m) => {
+    const att = attendanceData.find(a => a.name === m.name || m.name.includes(a.name) || a.name.includes(m.name.split(' ')[0])) || { late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 };
+    const totalMonths = m.years * 12 + m.months;
+    let bonusMonths = 0;
+    if (totalMonths < 6) bonusMonths = 0.5;
+    else if (totalMonths < 12) bonusMonths = 0.5;
+    else if (totalMonths < 24) bonusMonths = 1;
+    else if (totalMonths < 48) bonusMonths = 2.5;
+    else if (totalMonths < 60) bonusMonths = 4;
+    else bonusMonths = 5;
+    const baseBonus = m.salary * bonusMonths;
+    const dailyWage = m.salary / 30;
+    const isExempt = m.name === 'น้ำ' || m.name === 'อิ่ม';
+    const lateDed = isExempt ? 0 : att.lateMin * 1;
+    const absentDed = isExempt ? 0 : att.absent * dailyWage * 5;
+    const personalDed = isExempt ? 0 : att.personal * dailyWage * 3;
+    const sickDed = isExempt ? 0 : att.sick * dailyWage * 1;
+    const totalDed = lateDed + absentDed + personalDed + sickDed;
+    const netBonus = Math.max(0, baseBonus - totalDed);
+    const isPerfect = att.lateMin === 0 && att.absent === 0 && att.personal === 0 && att.sick === 0;
+    return { baseBonus, lateDed, absentDed, personalDed, sickDed, totalDed, netBonus, bonusMonths, att, isPerfect };
   };
 
-  const OTSlide = () => {
-    const otData = [
-      { name: 'เชอร์รี่', ot1: 292, ot2: 12, total: 304 },
-      { name: 'โอเว่น', ot1: 193, ot2: 7, total: 200 },
-      { name: 'ก็อต', ot1: 114, ot2: 22, total: 136 },
-      { name: 'ใบตอง', ot1: 118, ot2: 18, total: 136 },
-      { name: 'เบนซ์', ot1: 116, ot2: 3, total: 119 },
-      { name: 'วุฒิ', ot1: 107, ot2: 6, total: 113 },
-      { name: 'อู๋', ot1: 90, ot2: 21, total: 111 },
-      { name: 'พี่ยอด', ot1: 73, ot2: 38, total: 111 },
-      { name: 'เกมส์', ot1: 94, ot2: 7, total: 101 },
-      { name: 'อ๊อฟ', ot1: 74, ot2: 18, total: 92 },
-      { name: 'อุ๋ม', ot1: 69, ot2: 21, total: 90 },
-      { name: 'บูม', ot1: 54, ot2: 34, total: 88 },
-      { name: 'บอส', ot1: 54, ot2: 34, total: 88 },
-      { name: 'องุ่น', ot1: 68, ot2: 9, total: 77 },
-      { name: 'ทิพย์', ot1: 52, ot2: 22, total: 74 },
-      { name: 'ฟอร์ด', ot1: 67, ot2: 2, total: 69 },
-      { name: 'เจษ', ot1: 24, ot2: 32, total: 56 },
-      { name: 'ทิว', ot1: 40, ot2: 7, total: 47 },
-      { name: 'ปราย', ot1: 30, ot2: 4, total: 34 },
-      { name: 'แมน', ot1: 15, ot2: 4, total: 19 }
-    ].sort((a, b) => b.total - a.total);
-
-    const totalOT = otData.reduce((a, b) => a + b.total, 0);
-    const top5 = otData.slice(0, 5);
-
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:8}}>⏰ สรุป OT สะสม 12 เดือน (ม.ค.–ธ.ค. 2568)</h2>
-        
-        <div style={{background:'#fef3c7',padding:10,borderRadius:8,marginBottom:10}}>
-          <p style={{fontSize:12,fontWeight:'bold',color:'#92400e',margin:'0 0 8px'}}>🏆 Top 5 OT สูงสุด</p>
-          <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
-            {top5.map((m, i) => (
-              <div key={i} style={{background:i===0?'#fbbf24':i===1?'#9ca3af':i===2?'#cd7c2f':'white',color:i<3?'white':'#1e293b',padding:'6px 12px',borderRadius:20,fontSize:11,fontWeight:'bold',display:'flex',alignItems:'center',gap:4}}>
-                <span>{i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`}</span>
-                <span>{m.name}</span>
-                <span style={{background:'rgba(0,0,0,0.2)',padding:'2px 6px',borderRadius:10,fontSize:10}}>{m.total} ชม.</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:10,borderCollapse:'collapse'}}>
-            <thead>
-              <tr style={{background:'#f59e0b',color:'white'}}>
-                <th style={{padding:6,textAlign:'center',width:30}}>#</th>
-                <th style={{padding:6,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:6,textAlign:'right'}}>OT ปกติ</th>
-                <th style={{padding:6,textAlign:'right'}}>OT พิเศษ</th>
-                <th style={{padding:6,textAlign:'right',background:'#d97706'}}>รวม (ชม.)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {otData.map((m, i) => (
-                <tr key={i} style={{background: i<5 ? '#fffbeb' : i%2===0?'white':'#f8fafc'}}>
-                  <td style={{padding:5,textAlign:'center',fontWeight:'bold',color:i<3?'#f59e0b':'#64748b'}}>
-                    {i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}
-                  </td>
-                  <td style={{padding:5,fontWeight:i<5?'bold':'normal'}}>{m.name}</td>
-                  <td style={{padding:5,textAlign:'right',color:'#2563eb'}}>{m.ot1} ชม.</td>
-                  <td style={{padding:5,textAlign:'right',color:'#7c3aed'}}>{m.ot2} ชม.</td>
-                  <td style={{padding:5,textAlign:'right',fontWeight:'bold',color:'#d97706',background:'#fef3c7'}}>{m.total} ชม.</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr style={{background:'#f59e0b',color:'white',fontWeight:'bold'}}>
-                <td style={{padding:8}} colSpan={2}>รวมทั้งหมด</td>
-                <td style={{padding:8,textAlign:'right'}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</td>
-                <td style={{padding:8,textAlign:'right'}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</td>
-                <td style={{padding:8,textAlign:'right',background:'#d97706'}}>{totalOT} ชม.</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginTop:10}}>
-          <div style={{background:'#dbeafe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT ปกติรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#2563eb',margin:0}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</p>
-          </div>
-          <div style={{background:'#ede9fe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT พิเศษรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#7c3aed',margin:0}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</p>
-          </div>
-          <div style={{background:'#fef3c7',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>OT รวมทั้งหมด</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#d97706',margin:0}}>{totalOT} ชม.</p>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const AwardsSlide = () => {
-    const totalProfit = 27795765.23;
-    const kpiBonus = totalProfit * 0.001;
-
-    const awards = [
-      {
-        title: '🏆 รางวัลไม่สาย ไม่ขาด ไม่ลา',
-        desc: 'พนักงานที่มีวินัยเรื่องเวลาดีเยี่ยมตลอดปี',
-        color: '#16a34a',
-        bg: '#dcfce7',
-        winners: ['ฟอร์ด', 'แมน', 'พี่ยอด', 'เจษ', 'บอส', 'บูม'],
-        reward: 'ได้รับโบนัสเต็มจำนวน ⭐'
-      },
-      {
-        title: '⏰ รางวัลขยันทำ OT',
-        desc: 'Top 3 พนักงานที่ทุ่มเททำ OT มากที่สุด',
-        color: '#d97706',
-        bg: '#fef3c7',
-        winners: ['🥇 เชอร์รี่ (304 ชม.)', '🥈 โอเว่น (200 ชม.)', '🥉 ก็อต (136 ชม.)'],
-        reward: 'ขอบคุณที่ทุ่มเทให้องค์กร 💪'
-      },
-      {
-        title: '💰 รางวัลทีมทำยอดขายสูงสุด',
-        desc: 'ทีมที่สร้างกำไรให้องค์กรมากที่สุด',
-        color: '#7c3aed',
-        bg: '#ede9fe',
-        winners: ['🥇 ทีมเกมส์ (17.65 ล้าน)', '🥈 ทีมวุฒิ (8.37 ล้าน)', '🥉 ทีมโอเว่น (1.78 ล้าน)'],
-        reward: 'รวมกำไรทั้งปี 27.79 ล้านบาท 🎉'
-      }
-    ];
-
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:20,fontWeight:'bold',color:'white',marginBottom:12,textAlign:'center'}}>🎖️ รางวัลพนักงานดีเด่น 2568</h2>
-        
-        {awards.map((award, i) => (
-          <div key={i} style={{background:award.bg,borderRadius:8,padding:10,marginBottom:10,borderLeft:`4px solid ${award.color}`}}>
-            <h3 style={{fontSize:14,fontWeight:'bold',color:award.color,margin:'0 0 4px'}}>{award.title}</h3>
-            <p style={{fontSize:10,color:'#64748b',margin:'0 0 8px'}}>{award.desc}</p>
-            <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:6}}>
-              {award.winners.map((w, j) => (
-                <span key={j} style={{background:award.color,color:'white',padding:'4px 10px',borderRadius:12,fontSize:11,fontWeight:500}}>{w}</span>
-              ))}
-            </div>
-            <p style={{fontSize:10,color:award.color,margin:0,fontWeight:500}}>{award.reward}</p>
-          </div>
-        ))}
-
-        <div style={{background:'linear-gradient(to right,#fbbf24,#f59e0b)',borderRadius:8,padding:12,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>🌟 รางวัลผลงานโดดเด่นด้านการขาย</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>สมาชิกทีมขายทุกคนที่ร่วมสร้างกำไรให้องค์กร</p>
-          <div style={{background:'rgba(255,255,255,0.2)',padding:8,borderRadius:6}}>
-            <p style={{fontSize:11,color:'white',margin:'0 0 4px'}}>🎁 รางวัล: KPI รวม 0.1% ของกำไรตลอดปี</p>
-            <p style={{fontSize:18,fontWeight:'bold',color:'white',margin:0}}>= ฿{kpiBonus.toLocaleString(undefined,{maximumFractionDigits:2})}</p>
-            <p style={{fontSize:9,color:'rgba(255,255,255,0.8)',margin:'4px 0 0'}}>(จากกำไรรวม ฿{totalProfit.toLocaleString()})</p>
-          </div>
-        </div>
-
-        <div style={{background:'linear-gradient(to right,#ec4899,#be185d)',borderRadius:8,padding:12,marginBottom:10}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>💎 รางวัลผลงานโดดเด่นด้านความตั้งใจ มุ่งมานะ</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีความทุ่มเท ช่วยเหลืองาน และได้รับคำชมจากหัวหน้าทีม</p>
-          <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
-            <div style={{display:'flex',alignItems:'center',gap:10}}>
-              <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#ec4899,#be185d)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🏅</div>
-              <div>
-                <p style={{fontSize:16,fontWeight:'bold',color:'#be185d',margin:0}}>เบนซ์</p>
-                <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมเกมส์</p>
-              </div>
-              <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
-              </div>
-            </div>
-            <div style={{background:'#fdf2f8',padding:8,borderRadius:4,marginTop:8}}>
-              <p style={{fontSize:10,color:'#be185d',margin:0,fontStyle:'italic'}}>"จัดการงานหลังบ้านได้ดีมาก" — คะแนน 99/100 สูงสุดในองค์กร</p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{background:'linear-gradient(to right,#06b6d4,#0891b2)',borderRadius:8,padding:12}}>
-          <h3 style={{fontSize:14,fontWeight:'bold',color:'white',margin:'0 0 8px'}}>📈 รางวัลพัฒนาการดีเด่น</h3>
-          <p style={{fontSize:10,color:'rgba(255,255,255,0.9)',margin:'0 0 8px'}}>พนักงานที่มีพัฒนาการในการทำงานโดดเด่น</p>
-          <div style={{background:'rgba(255,255,255,0.95)',padding:10,borderRadius:6}}>
-            <div style={{display:'flex',alignItems:'center',gap:10}}>
-              <div style={{width:50,height:50,background:'linear-gradient(to bottom right,#06b6d4,#0891b2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:24}}>🌟</div>
-              <div>
-                <p style={{fontSize:16,fontWeight:'bold',color:'#0891b2',margin:0}}>อู๋ (ปะจิ)</p>
-                <p style={{fontSize:10,color:'#64748b',margin:'2px 0 0'}}>ทีมโอเว่น</p>
-              </div>
-              <div style={{marginLeft:'auto',textAlign:'right'}}>
-                <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-                <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
-              </div>
-            </div>
-            <div style={{background:'#ecfeff',padding:8,borderRadius:4,marginTop:8}}>
-              <p style={{fontSize:10,color:'#0891b2',margin:0,fontStyle:'italic'}}>"โดยรวมทำงานได้ดี มีไหวพริบในการแก้ปัญหา" — คะแนน 96/100</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const SummarySlide = () => {
-    const all = teams.flatMap(t => t.members);
-    const avg = Math.round(all.reduce((a, m) => a + m.total, 0) / all.length);
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#0f172a,#1e293b)',color:'white',padding:16,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-        <TrendingUp size={36} color="#4ade80" style={{marginBottom:8}} />
-        <h2 style={{fontSize:20,marginBottom:12}}>สรุปผลการประเมิน</h2>
-        <div style={{background:'rgba(255,255,255,0.1)',padding:12,borderRadius:8,marginBottom:12,textAlign:'center'}}>
-          <p style={{fontSize:12,color:'#94a3b8',margin:0}}>คะแนนเฉลี่ย</p>
-          <p style={{fontSize:32,fontWeight:'bold',margin:0}}>{avg}/100</p>
-        </div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,width:'100%',maxWidth:300}}>
-          <div style={{background:'rgba(255,255,255,0.1)',padding:8,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#4ade80',margin:0}}>{all.filter(m=>m.total>=90).length}</p>
-            <p style={{fontSize:12,color:'#94a3b8',margin:0}}>ดีเยี่ยม (A)</p>
-          </div>
-          <div style={{background:'rgba(255,255,255,0.1)',padding:8,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#60a5fa',margin:0}}>{all.filter(m=>m.total>=80&&m.total<90).length}</p>
-            <p style={{fontSize:12,color:'#94a3b8',margin:0}}>ดี (B)</p>
-          </div>
-          <div style={{background:'rgba(255,255,255,0.1)',padding:8,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:20,fontWeight:'bold',color:'#facc15',margin:0}}>{all.filter(m=>m.total<80).length}</p>
-            <p style={{fontSize:12,color:'#94a3b8',margin:0}}>ปรับปรุง</p>
-          </div>
-        </div>
-        <p style={{color:'#64748b',fontSize:14,marginTop:16}}>ขอบคุณที่รับฟัง</p>
-      </div>
-    );
-  };
-
-  const render = () => {
-    if (slide === 0) return <Slide0 />;
-    if (slide === 1) return <Slide1 />;
-    if (slide >= 2 && slide <= 6) return <TeamSlide team={teams[slide-2]} />;
-    if (slide === 7) return <SalesSlide />;
-    if (slide === 8) return <AllMembersSlide />;
-    if (slide === 9) return <AllScoresSlide />;
-    if (slide === 10) return <AttendanceSlide />;
-    if (slide === 11) return <WorkSlide />;
-    if (slide === 12) return <BonusCalcSlide />;
-    if (slide === 13) return <OTSlide />;
-    if (slide === 14) return <AwardsSlide />;
-    if (slide === 15) return <SummarySlide />;
-    return <SummarySlide />;
-  };
+  const bonusData = workMembers.map(m => ({ ...m, ...calcBonus(m) }));
+  const totalBase = bonusData.reduce((a, b) => a + b.baseBonus, 0);
+  const totalDed = bonusData.reduce((a, b) => a + b.totalDed, 0);
+  const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
 
   return (
-    <div style={{width:'100%',height:'100vh',background:'#e2e8f0',display:'flex',flexDirection:'column'}}>
-      {person && <PersonModal />}
-      <div style={{flex:1,margin:8,borderRadius:12,overflow:'hidden',boxShadow:'0 25px 50px -12px rgba(0,0,0,0.25)'}}>{render()}</div>
-      <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:12,padding:8,background:'#1e293b'}}>
-        <button onClick={() => setSlide(s => Math.max(s-1,0))} disabled={slide===0} style={{padding:6,borderRadius:'50%',background:'rgba(255,255,255,0.2)',color:'white',border:'none',cursor:'pointer',opacity:slide===0?0.3:1}}><ChevronLeft size={18}/></button>
-        <div style={{display:'flex',gap:4}}>{Array.from({length:total}).map((_,i) => <button key={i} onClick={() => setSlide(i)} style={{width:8,height:8,borderRadius:'50%',background:slide===i?'white':'rgba(255,255,255,0.4)',border:'none',cursor:'pointer'}}/>)}</div>
-        <button onClick={() => setSlide(s => Math.min(s+1,total-1))} disabled={slide===total-1} style={{padding:6,borderRadius:'50%',background:'rgba(255,255,255,0.2)',color:'white',border:'none',cursor:'pointer',opacity:slide===total-1?0.3:1}}><ChevronRight size={18}/></button>
-        <span style={{color:'rgba(255,255,255,0.6)',marginLeft:8,fontSize:12}}>{slide+1}/{total}</span>
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+      <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:10}}>💵 คำนวณโบนัสสุทธิ</h2>
+      <div style={{background:'#e0e7ff',padding:10,borderRadius:10,marginBottom:10,fontSize:11}}>
+        <strong>เงื่อนไขโบนัส:</strong> &lt;6ด.=0.5เดือน | 6ด.-1ปี=0.5เดือน | 1-2ปี=1เดือน | 2-4ปี=2.5เดือน | 4-5ปี=4เดือน | 5ปี+=5เดือน<br/>
+        <strong>หักลด:</strong> สาย=1฿/นาที | ขาด=ค่าแรงx5/วัน | ลากิจ=ค่าแรงx3/วัน | ลาป่วย=ค่าแรงx1/วัน
+      </div>
+      <div style={{background:'white',borderRadius:10,overflow:'hidden'}}>
+        <table style={{width:'100%',fontSize:11,borderCollapse:'collapse'}}>
+          <thead>
+            <tr style={{background:'#7c3aed',color:'white'}}>
+              <th style={{padding:6,textAlign:'left',fontSize:12}}>ชื่อ</th>
+              <th style={{padding:6,textAlign:'center',fontSize:11}}>อายุงาน</th>
+              <th style={{padding:6,textAlign:'right',fontSize:11}}>โบนัสเดิม</th>
+              <th style={{padding:6,textAlign:'right',fontSize:11}}>หักสาย</th>
+              <th style={{padding:6,textAlign:'right',fontSize:11}}>หักขาด</th>
+              <th style={{padding:6,textAlign:'right',fontSize:11}}>หักกิจ</th>
+              <th style={{padding:6,textAlign:'right',fontSize:11}}>หักป่วย</th>
+              <th style={{padding:6,textAlign:'right',background:'#16a34a',fontSize:12}}>โบนัสสุทธิ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bonusData.map((m, i) => (
+              <tr key={i} style={{background: m.warning ? '#fef2f2' : m.isPerfect ? '#f0fdf4' : i%2===0?'white':'#f8fafc', border: m.warning ? '2px solid #ef4444' : 'none'}}>
+                <td style={{padding:6}}>
+                  {m.warning && <span>⚠️</span>}
+                  <span style={{fontWeight:500,fontSize:12}}>{m.name}</span>
+                  {m.isPerfect && <span style={{marginLeft:4}}>⭐</span>}
+                  <div style={{background:m.color,color:'white',padding:'1px 6px',borderRadius:4,fontSize:10,display:'inline-block',marginLeft:4}}>{m.team}</div>
+                </td>
+                <td style={{padding:6,textAlign:'center',fontSize:10}}>{m.years}ปี{m.months}ด. ({m.bonusMonths}ด.)</td>
+                <td style={{padding:6,textAlign:'right',color:'#2563eb',fontSize:11}}>฿{m.baseBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+                <td style={{padding:6,textAlign:'right',color:m.lateDed>0?'#dc2626':'#9ca3af',fontSize:11}}>{m.lateDed>0?`-฿${m.lateDed.toLocaleString()}`:'-'}</td>
+                <td style={{padding:6,textAlign:'right',color:m.absentDed>0?'#dc2626':'#9ca3af',fontSize:11}}>{m.absentDed>0?`-฿${m.absentDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
+                <td style={{padding:6,textAlign:'right',color:m.personalDed>0?'#dc2626':'#9ca3af',fontSize:11}}>{m.personalDed>0?`-฿${m.personalDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
+                <td style={{padding:6,textAlign:'right',color:m.sickDed>0?'#dc2626':'#9ca3af',fontSize:11}}>{m.sickDed>0?`-฿${m.sickDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
+                <td style={{padding:6,textAlign:'right',fontWeight:'bold',color:'#16a34a',background:'#f0fdf4',fontSize:12}}>฿{m.netBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr style={{background:'#7c3aed',color:'white',fontWeight:'bold'}}>
+              <td style={{padding:8,fontSize:13}} colSpan={2}>รวมทั้งหมด</td>
+              <td style={{padding:8,textAlign:'right',fontSize:12}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+              <td style={{padding:8,fontSize:11}} colSpan={4} style={{textAlign:'center',color:'#fca5a5'}}>หักรวม: ฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+              <td style={{padding:8,textAlign:'right',background:'#16a34a',fontSize:13}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginTop:12}}>
+        <div style={{background:'#dbeafe',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>โบนัสเดิมรวม</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#2563eb',margin:0}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+        </div>
+        <div style={{background:'#fee2e2',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>หักลดรวม</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#dc2626',margin:0}}>-฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+        </div>
+        <div style={{background:'#dcfce7',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>โบนัสสุทธิรวม</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
+        </div>
+      </div>
+      <div style={{marginTop:10,fontSize:11,color:'#64748b'}}>⭐ = ไม่ขาด ไม่ลา ไม่สาย รับโบนัสเต็ม</div>
+    </div>
+  );
+};
+
+// ===== 2. OTSlide - ขนาดตัวหนังสือใหญ่ขึ้น =====
+const OTSlide = () => {
+  const otData = [
+    { name: 'เชอร์รี่', ot1: 292, ot2: 12, total: 304 },
+    { name: 'โอเว่น', ot1: 193, ot2: 7, total: 200 },
+    { name: 'ก็อต', ot1: 114, ot2: 22, total: 136 },
+    { name: 'ใบตอง', ot1: 118, ot2: 18, total: 136 },
+    { name: 'เบนซ์', ot1: 116, ot2: 3, total: 119 },
+    { name: 'วุฒิ', ot1: 107, ot2: 6, total: 113 },
+    { name: 'อู๋', ot1: 90, ot2: 21, total: 111 },
+    { name: 'พี่ยอด', ot1: 73, ot2: 38, total: 111 },
+    { name: 'เกมส์', ot1: 94, ot2: 7, total: 101 },
+    { name: 'ออฟ', ot1: 74, ot2: 18, total: 92 },
+    { name: 'อุ้ม', ot1: 69, ot2: 21, total: 90 },
+    { name: 'บูม', ot1: 54, ot2: 34, total: 88 },
+    { name: 'บอส', ot1: 54, ot2: 34, total: 88 },
+    { name: 'องุ่น', ot1: 68, ot2: 9, total: 77 },
+    { name: 'ทิพย์', ot1: 52, ot2: 22, total: 74 },
+    { name: 'ฟอร์ด', ot1: 67, ot2: 2, total: 69 },
+    { name: 'เจษ', ot1: 24, ot2: 32, total: 56 },
+    { name: 'ทิว', ot1: 40, ot2: 7, total: 47 },
+    { name: 'ปราย', ot1: 30, ot2: 4, total: 34 },
+    { name: 'แมน', ot1: 15, ot2: 4, total: 19 }
+  ].sort((a, b) => b.total - a.total);
+
+  const totalOT = otData.reduce((a, b) => a + b.total, 0);
+  const top5 = otData.slice(0, 5);
+
+  return (
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+      <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:10}}>⏰ สรุป OT สะสม 12 เดือน (ม.ค.–ธ.ค. 2568)</h2>
+      
+      <div style={{background:'#fef3c7',padding:12,borderRadius:10,marginBottom:12}}>
+        <p style={{fontSize:14,fontWeight:'bold',color:'#92400e',margin:'0 0 10px'}}>🏆 Top 5 OT สูงสุด</p>
+        <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+          {top5.map((m, i) => (
+            <div key={i} style={{background:i===0?'#fbbf24':i===1?'#9ca3af':i===2?'#cd7c2f':'white',color:i<3?'white':'#1e293b',padding:'8px 14px',borderRadius:20,fontSize:13,fontWeight:'bold',display:'flex',alignItems:'center',gap:6}}>
+              <span>{i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}.`}</span>
+              <span>{m.name}</span>
+              <span style={{background:'rgba(0,0,0,0.2)',padding:'3px 8px',borderRadius:10,fontSize:12}}>{m.total} ชม.</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{background:'white',borderRadius:10,overflow:'hidden'}}>
+        <table style={{width:'100%',fontSize:12,borderCollapse:'collapse'}}>
+          <thead>
+            <tr style={{background:'#f59e0b',color:'white'}}>
+              <th style={{padding:8,textAlign:'center',width:40,fontSize:13}}>#</th>
+              <th style={{padding:8,textAlign:'left',fontSize:13}}>ชื่อ</th>
+              <th style={{padding:8,textAlign:'right',fontSize:13}}>OT ปกติ</th>
+              <th style={{padding:8,textAlign:'right',fontSize:13}}>OT พิเศษ</th>
+              <th style={{padding:8,textAlign:'right',background:'#d97706',fontSize:13}}>รวม (ชม.)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {otData.map((m, i) => (
+              <tr key={i} style={{background: i<5 ? '#fffbeb' : i%2===0?'white':'#f8fafc'}}>
+                <td style={{padding:7,textAlign:'center',fontWeight:'bold',color:i<3?'#f59e0b':'#64748b',fontSize:13}}>
+                  {i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}
+                </td>
+                <td style={{padding:7,fontWeight:i<5?'bold':'normal',fontSize:13}}>{m.name}</td>
+                <td style={{padding:7,textAlign:'right',color:'#2563eb',fontSize:12}}>{m.ot1} ชม.</td>
+                <td style={{padding:7,textAlign:'right',color:'#7c3aed',fontSize:12}}>{m.ot2} ชม.</td>
+                <td style={{padding:7,textAlign:'right',fontWeight:'bold',color:'#d97706',background:'#fef3c7',fontSize:13}}>{m.total} ชม.</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr style={{background:'#f59e0b',color:'white',fontWeight:'bold'}}>
+              <td style={{padding:10,fontSize:14}} colSpan={2}>รวมทั้งหมด</td>
+              <td style={{padding:10,textAlign:'right',fontSize:13}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</td>
+              <td style={{padding:10,textAlign:'right',fontSize:13}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</td>
+              <td style={{padding:10,textAlign:'right',background:'#d97706',fontSize:14}}>{totalOT} ชม.</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginTop:12}}>
+        <div style={{background:'#dbeafe',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>OT ปกติรวม</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#2563eb',margin:0}}>{otData.reduce((a,b)=>a+b.ot1,0)} ชม.</p>
+        </div>
+        <div style={{background:'#ede9fe',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>OT พิเศษรวม</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#7c3aed',margin:0}}>{otData.reduce((a,b)=>a+b.ot2,0)} ชม.</p>
+        </div>
+        <div style={{background:'#fef3c7',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:12,color:'#475569',margin:0}}>OT รวมทั้งหมด</p>
+          <p style={{fontSize:18,fontWeight:'bold',color:'#d97706',margin:0}}>{totalOT} ชม.</p>
+        </div>
       </div>
     </div>
   );
-}
+};
 
+// ===== 3. AwardsSlide - ขนาดตัวหนังสือใหญ่ขึ้น =====
+const AwardsSlide = () => {
+  const totalProfit = 27795765.23;
+  const kpiBonus = totalProfit * 0.001;
+
+  const awards = [
+    {
+      title: '🏆 รางวัลไม่สาย ไม่ขาด ไม่ลา',
+      desc: 'พนักงานที่มีวินัยเรื่องเวลาดีเยี่ยมตลอดปี',
+      color: '#16a34a',
+      bg: '#dcfce7',
+      winners: ['ฟอร์ด', 'แมน', 'พี่ยอด', 'เจษ', 'บอส', 'บูม'],
+      reward: 'ได้รับโบนัสเต็มจำนวน ⭐'
+    },
+    {
+      title: '⏰ รางวัลขยันทำ OT',
+      desc: 'Top 3 พนักงานที่ทุ่มเททำ OT มากที่สุด',
+      color: '#d97706',
+      bg: '#fef3c7',
+      winners: ['🥇 เชอร์รี่ (304 ชม.)', '🥈 โอเว่น (200 ชม.)', '🥉 ก็อต (136 ชม.)'],
+      reward: 'ขอบคุณที่ทุ่มเทให้องค์กร 💪'
+    },
+    {
+      title: '💰 รางวัลทีมทำยอดขายสูงสุด',
+      desc: 'ทีมที่สร้างกำไรให้องค์กรมากที่สุด',
+      color: '#7c3aed',
+      bg: '#ede9fe',
+      winners: ['🥇 ทีมเกมส์ (17.65 ล้าน)', '🥈 ทีมวุฒิ (8.37 ล้าน)', '🥉 ทีมโอเว่น (1.78 ล้าน)'],
+      reward: 'รวมกำไรทั้งปี 27.79 ล้านบาท 🎉'
+    }
+  ];
+
+  return (
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:16,overflow:'auto'}}>
+      <h2 style={{fontSize:24,fontWeight:'bold',color:'white',marginBottom:16,textAlign:'center'}}>🎖️ รางวัลพนักงานดีเด่น 2568</h2>
+      
+      {awards.map((award, i) => (
+        <div key={i} style={{background:award.bg,borderRadius:10,padding:12,marginBottom:12,borderLeft:`4px solid ${award.color}`}}>
+          <h3 style={{fontSize:16,fontWeight:'bold',color:award.color,margin:'0 0 6px'}}>{award.title}</h3>
+          <p style={{fontSize:12,color:'#64748b',margin:'0 0 10px'}}>{award.desc}</p>
+          <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:8}}>
+            {award.winners.map((w, j) => (
+              <span key={j} style={{background:award.color,color:'white',padding:'6px 12px',borderRadius:12,fontSize:13,fontWeight:500}}>{w}</span>
+            ))}
+          </div>
+          <p style={{fontSize:12,color:award.color,margin:0,fontWeight:500}}>{award.reward}</p>
+        </div>
+      ))}
+
+      <div style={{background:'linear-gradient(to right,#fbbf24,#f59e0b)',borderRadius:10,padding:14,marginBottom:12}}>
+        <h3 style={{fontSize:16,fontWeight:'bold',color:'white',margin:'0 0 10px'}}>🌟 รางวัลผลงานโดดเด่นด้านการขาย</h3>
+        <p style={{fontSize:12,color:'rgba(255,255,255,0.9)',margin:'0 0 10px'}}>สมาชิกทีมขายทุกคนที่ร่วมสร้างกำไรให้องค์กร</p>
+        <div style={{background:'rgba(255,255,255,0.2)',padding:10,borderRadius:8}}>
+          <p style={{fontSize:13,color:'white',margin:'0 0 6px'}}>🎁 รางวัล: KPI รวม 0.1% ของกำไรตลอดปี</p>
+          <p style={{fontSize:22,fontWeight:'bold',color:'white',margin:0}}>= ฿{kpiBonus.toLocaleString(undefined,{maximumFractionDigits:2})}</p>
+          <p style={{fontSize:11,color:'rgba(255,255,255,0.8)',margin:'6px 0 0'}}>(จากกำไรรวม ฿{totalProfit.toLocaleString()})</p>
+        </div>
+      </div>
+
+      <div style={{background:'linear-gradient(to right,#ec4899,#be185d)',borderRadius:10,padding:14,marginBottom:12}}>
+        <h3 style={{fontSize:16,fontWeight:'bold',color:'white',margin:'0 0 10px'}}>💎 รางวัลผลงานโดดเด่นด้านความตั้งใจ มุ่งมานะ</h3>
+        <p style={{fontSize:12,color:'rgba(255,255,255,0.9)',margin:'0 0 10px'}}>พนักงานที่มีความทุ่มเท ช่วยเหลืองาน และได้รับคำชมจากหัวหน้าทีม</p>
+        <div style={{background:'rgba(255,255,255,0.95)',padding:12,borderRadius:8}}>
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <div style={{width:60,height:60,background:'linear-gradient(to bottom right,#ec4899,#be185d)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28}}>🏅</div>
+            <div>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#be185d',margin:0}}>เบนซ์</p>
+              <p style={{fontSize:12,color:'#64748b',margin:'2px 0 0'}}>ทีมเกมส์</p>
+            </div>
+            <div style={{marginLeft:'auto',textAlign:'right'}}>
+              <p style={{fontSize:12,color:'#64748b',margin:0}}>รางวัล</p>
+              <p style={{fontSize:20,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
+            </div>
+          </div>
+          <div style={{background:'#fdf2f8',padding:10,borderRadius:6,marginTop:10}}>
+            <p style={{fontSize:12,color:'#be185d',margin:0,fontStyle:'italic'}}>"จัดการงานหลังบ้านได้ดีมาก" — คะแนน 99/100 สูงสุดในองค์กร</p>
+          </div>
+        </div>
+      </div>
+
+      <div style={{background:'linear-gradient(to right,#06b6d4,#0891b2)',borderRadius:10,padding:14}}>
+        <h3 style={{fontSize:16,fontWeight:'bold',color:'white',margin:'0 0 10px'}}>📈 รางวัลพัฒนาการดีเด่น</h3>
+        <p style={{fontSize:12,color:'rgba(255,255,255,0.9)',margin:'0 0 10px'}}>พนักงานที่มีพัฒนาการในการทำงานโดดเด่น</p>
+        <div style={{background:'rgba(255,255,255,0.95)',padding:12,borderRadius:8}}>
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <div style={{width:60,height:60,background:'linear-gradient(to bottom right,#06b6d4,#0891b2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28}}>🌟</div>
+            <div>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#0891b2',margin:0}}>อู๋ (ปะจิ)</p>
+              <p style={{fontSize:12,color:'#64748b',margin:'2px 0 0'}}>ทีมโอเว่น</p>
+            </div>
+            <div style={{marginLeft:'auto',textAlign:'right'}}>
+              <p style={{fontSize:12,color:'#64748b',margin:0}}>รางวัล</p>
+              <p style={{fontSize:20,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
+            </div>
+          </div>
+          <div style={{background:'#ecfeff',padding:10,borderRadius:6,marginTop:10}}>
+            <p style={{fontSize:12,color:'#0891b2',margin:0,fontStyle:'italic'}}>"โดยรวมทำงานได้ดี มีไหวพริบในการแก้ปัญหา" — คะแนน 96/100</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== 4. SummarySlide - ขนาดตัวหนังสือใหญ่ขึ้น =====
+const SummarySlide = () => {
+  const all = teams.flatMap(t => t.members);
+  const avg = Math.round(all.reduce((a, m) => a + m.total, 0) / all.length);
+  return (
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#0f172a,#1e293b)',color:'white',padding:20,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+      <TrendingUp size={48} color="#4ade80" style={{marginBottom:12}} />
+      <h2 style={{fontSize:28,marginBottom:16}}>สรุปผลการประเมิน</h2>
+      <div style={{background:'rgba(255,255,255,0.1)',padding:16,borderRadius:12,marginBottom:16,textAlign:'center'}}>
+        <p style={{fontSize:16,color:'#94a3b8',margin:0}}>คะแนนเฉลี่ย</p>
+        <p style={{fontSize:42,fontWeight:'bold',margin:0}}>{avg}/100</p>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:12,width:'100%',maxWidth:360}}>
+        <div style={{background:'rgba(255,255,255,0.1)',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:26,fontWeight:'bold',color:'#4ade80',margin:0}}>{all.filter(m=>m.total>=90).length}</p>
+          <p style={{fontSize:14,color:'#94a3b8',margin:0}}>ดีเยี่ยม (A)</p>
+        </div>
+        <div style={{background:'rgba(255,255,255,0.1)',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:26,fontWeight:'bold',color:'#60a5fa',margin:0}}>{all.filter(m=>m.total>=80&&m.total<90).length}</p>
+          <p style={{fontSize:14,color:'#94a3b8',margin:0}}>ดี (B)</p>
+        </div>
+        <div style={{background:'rgba(255,255,255,0.1)',padding:12,borderRadius:10,textAlign:'center'}}>
+          <p style={{fontSize:26,fontWeight:'bold',color:'#facc15',margin:0}}>{all.filter(m=>m.total<80).length}</p>
+          <p style={{fontSize:14,color:'#94a3b8',margin:0}}>ปรับปรุง</p>
+        </div>
+      </div>
+      <p style={{color:'#64748b',fontSize:16,marginTop:20}}>ขอบคุณที่รับฟัง</p>
+    </div>
+  );
+};
