@@ -128,7 +128,7 @@ const Avatar = ({ name, size = 60, style = {} }) => {
 export default function App() {
   const [slide, setSlide] = useState(0);
   const [person, setPerson] = useState(null);
-  const total = 12;
+  const total = 16;
 
   const getGrade = (s) => {
     if (s >= 90) return { g: 'A', c: '#16a34a' };
