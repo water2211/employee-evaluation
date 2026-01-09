@@ -9,6 +9,103 @@ const teamSalesData = {
   'ทีมวุฒิ': [1080394.00, 835973.40, 777258.63, 736315.41, 859789.61, 676116.39, 669166.94, 562142.42, 598512.78, 678958.41, 522061.02, 370542.75],
   'ทีมเกมส์': [975975.00, 1352726.31, 1158208.08, 1424212.75, 1723713.51, 1300450.82, 1766279.81, 1504554.76, 1710253.92, 1555223.46, 1445062.49, 1735642.75]
 };
+const imageMap = {
+  'เอม': 'Aim.jpg',
+  'น้ำ': 'Nam.jpg',
+  'อิ่ม': 'aum.jpg',
+
+  'องุ่น': 'angoon.jpg',
+  'อุ้ม': 'aum.jpg', // ถ้าคุณมี aum.jpg ใช้ร่วมได้
+  'ใบตอง': 'baitong.jpg',
+
+  'เบนซ์': 'benz.jpg',
+  'บูม': 'boom.jpg',
+  'บอส': 'boss.jpg',
+
+  'เชอรี่': 'cherry.jpg',
+  'เชอร์รี่': 'cherry.jpg',
+
+  'ฟอร์ด': 'ford.jpg',
+  'เกมส์': 'games.jpg',
+  'ก็อต': 'got.jpg',
+  'เจษ': 'jess.jpg',
+
+  'อ๊อฟ': 'off.jpg',
+  'โอเว่น': 'owen.jpg',
+  'ไปท์': 'pait.jpg',
+
+  'ปราย': 'praj.jpg',
+  'ทิว': 'tew.jpg',
+  'ทิพย์': 'tip.jpg',
+
+  'อู๋': 'uu.jpg',
+  'วุฒิ': 'wuthi.jpg',
+  'พี่ยอด': 'yod.jpg',
+
+  // ถ้ามีไฟล์ por.jpg ตาม list คุณ (ปอ)
+  'ปอ': 'por.jpg',
+};
+
+const getImg = (name = '') => {
+  // เคสชื่อแบบ "อู๋ (ปะจิ)" → ให้ตัดวงเล็บออกก่อน
+  const clean = String(name).replace(/\(.*?\)/g, '').trim();
+
+  // ตรงชื่อเลย
+  if (imageMap[clean]) return `/images/${imageMap[clean]}`;
+
+  // ลองหาด้วย "contains" (กันชื่อมีคำต่อท้าย)
+  const hit = Object.keys(imageMap).find((k) => clean.includes(k) || k.includes(clean));
+  if (hit) return `/images/${imageMap[hit]}`;
+
+  return null;
+};
+
+const Avatar = ({ name, size = 36 }) => {
+  const src = getImg(name);
+
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={name}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          objectFit: 'cover',
+          border: '2px solid white',
+          boxShadow: '0 1px 6px rgba(0,0,0,0.15)',
+          flex: '0 0 auto'
+        }}
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
+      />
+    );
+  }
+
+  // fallback (ไม่มีรูป)
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: '50%',
+        background: '#e2e8f0',
+        border: '2px solid white',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: Math.max(12, Math.floor(size * 0.35)),
+        color: '#475569',
+        flex: '0 0 auto'
+      }}
+    >
+      {String(name).trim().slice(0, 1) || '👤'}
+    </div>
+  );
+};
 
 const teams = [
   { name: 'ทีมโอเว่น', leader: 'โอเว่น', color: '#3b82f6', hasSales: true, members: [
@@ -1181,6 +1278,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
