@@ -144,13 +144,7 @@ export default function App() {
       ))}
   </ul>
 </div>
-            <div style={{background:'#fefce8',padding:12,borderRadius:8}}>
-              <h3 style={{fontSize:14,margin:'0 0 8px'}}>หมายเหตุ</h3>
-              <p style={{fontSize:12,color:'#475569',background:'white',padding:8,borderRadius:4,margin:0}}>{person.review || '-'}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+          
     );
   };
 
@@ -957,6 +951,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
