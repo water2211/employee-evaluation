@@ -743,7 +743,8 @@ const AttendanceSlide = () => {
   const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
 
   return (
-    <div style={{ height: '100%', background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)', padding: 16, overflow: 'auto' }}>
+    <div style={{ height: '100%', background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)', padding: 16,paddingBottom: 80, overflow: 'auto' }}>
+      
       <h2 style={{ fontSize: 24, fontWeight: 'bold', color: '#1e293b', marginBottom: 10 }}>💵 คำนวณโบนัสสุทธิ</h2>
 
       <div style={{ background: '#e0e7ff', padding: 12, borderRadius: 12, marginBottom: 12, fontSize: 13, lineHeight: 1.6 }}>
@@ -1132,6 +1133,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
