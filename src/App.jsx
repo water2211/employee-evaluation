@@ -97,7 +97,7 @@ const PersonModal = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 50,
+        zIndex: 50,paddingBottom: 130,
         padding: 8
       }}
       onClick={() => setPerson(null)}
@@ -448,7 +448,7 @@ const AttendanceSlide = () => {
   const topPersonal = [...attendanceData].sort((a, b) => b.personal - a.personal).slice(0, 5).filter(m => m.personal > 0);
 
   return (
-    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,paddingBottom: 130,overflow:'auto'}}>
       <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:14}}>📊 สถิติขาด ลา มาสาย</h2>
 
       <div style={{background:'white',borderRadius:12,overflow:'hidden',marginBottom:16,border:'1px solid #e2e8f0'}}>
@@ -580,7 +580,7 @@ const AttendanceSlide = () => {
     const sorted = [...allMembers].sort((a, b) => b.total - a.total);
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,paddingBottom: 130,overflow:'auto'}}>
         <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>🏆 สรุปคะแนนจากหัวหน้าทีมประเมิน</h2>
         
         <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
@@ -651,7 +651,7 @@ const AttendanceSlide = () => {
     }));
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,paddingBottom: 120,overflow:'auto'}}>
         <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>📋 ตารางคะแนนรวมทุกทีม</h2>
         
         {allTeamMembers.map((team, ti) => (
@@ -743,7 +743,7 @@ const AttendanceSlide = () => {
   const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
 
   return (
-    <div style={{ height: '100%', background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)', padding: 16,paddingBottom: 80, overflow: 'auto' }}>
+    <div style={{ height: '100%', background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)', padding: 16,paddingBottom: 120, overflow: 'auto' }}>
       
       <h2 style={{ fontSize: 24, fontWeight: 'bold', color: '#1e293b', marginBottom: 10 }}>💵 คำนวณโบนัสสุทธิ</h2>
 
@@ -902,7 +902,7 @@ const AttendanceSlide = () => {
     const top5 = otData.slice(0, 5);
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,paddingBottom: 130,overflow:'auto'}}>
         <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:8}}>⏰ สรุป OT สะสม 12 เดือน (ม.ค.–ธ.ค. 2568)</h2>
         
         <div style={{background:'#fef3c7',padding:10,borderRadius:8,marginBottom:10}}>
@@ -1003,7 +1003,7 @@ const AttendanceSlide = () => {
     ];
 
     return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:12,overflow:'auto'}}>
+      <div style={{height:'100%',background:'linear-gradient(to bottom right,#1e1b4b,#312e81)',padding:12,paddingBottom: 130,overflow:'auto'}}>
         <h2 style={{fontSize:20,fontWeight:'bold',color:'white',marginBottom:12,textAlign:'center'}}>🎖️ รางวัลพนักงานดีเด่น 2568</h2>
         
         {awards.map((award, i) => (
@@ -1133,6 +1133,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
