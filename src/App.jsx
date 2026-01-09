@@ -1202,7 +1202,7 @@ const AttendanceSlide = () => {
             </div>
             <div style={{marginLeft:'auto',textAlign:'right'}}>
               <p style={{fontSize:10,color:'#64748b',margin:0}}>รางวัล</p>
-              <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿3,000</p>
+              <p style={{fontSize:18,fontWeight:'bold',color:'#16a34a',margin:0}}>+฿2,000</p>
             </div>
           </div>
           <div style={{background:'#fdf2f8',padding:8,borderRadius:4,marginTop:8}}>
@@ -1293,6 +1293,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
