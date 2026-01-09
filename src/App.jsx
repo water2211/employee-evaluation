@@ -408,133 +408,172 @@ const PersonModal = () => {
     );
   };
 
-  const attendanceData = [
-    { name: 'น้ำ', late: 0, lateMin: 0, sick: 1, personal: 2, vacation: 0, absent: 0 },
-    { name: 'อิ่ม', late: 0, lateMin: 0, sick: 3, personal: 11, vacation: 0, absent: 0 },
-    { name: 'วุฒิ', late: 132, lateMin: 2579, sick: 17, personal: 3, vacation: 3, absent: 2 },
-    { name: 'ปราย', late: 2, lateMin: 5, sick: 1, personal: 1, vacation: 0, absent: 0 },
-    { name: 'ทิว', late: 17, lateMin: 485, sick: 0, personal: 1, vacation: 0, absent: 0 },
-    { name: 'ฟอร์ด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'โอเว่น', late: 1, lateMin: 8, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'แมน', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อู๋', late: 2, lateMin: 9, sick: 6, personal: 0, vacation: 0, absent: 0 },
-    { name: 'เกมส์', late: 85, lateMin: 1225, sick: 0, personal: 0, vacation: 3, absent: 0 },
-    { name: 'เชอรรี่', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 4, absent: 0 },
-    { name: 'เบนซ์', late: 23, lateMin: 125, sick: 0, personal: 5, vacation: 0, absent: 0 },
-    { name: 'องุ่น', late: 1, lateMin: 18, sick: 1, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อ๊อฟ', late: 1, lateMin: 0, sick: 0, personal: 5, vacation: 0, absent: 0 },
-    { name: 'ก็อต', late: 39, lateMin: 565, sick: 1, personal: 4, vacation: 0, absent: 0 },
-    { name: 'ทิพย์', late: 57, lateMin: 442, sick: 2, personal: 0, vacation: 0, absent: 0 },
-    { name: 'พี่ยอด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'อุ้ม', late: 50, lateMin: 645, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'ใบตอง', late: 26, lateMin: 535, sick: 6, personal: 3, vacation: 0, absent: 3 },
-    { name: 'เจษ', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'บอส', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'บูม', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
-    { name: 'ไปท์', late: 2, lateMin: 11, sick: 0, personal: 0, vacation: 0, absent: 0 }
-  ];
+ const attendanceData = [
+  { name: 'น้ำ', late: 0, lateMin: 0, sick: 1, personal: 2, vacation: 0, absent: 0 },
+  { name: 'อิ่ม', late: 0, lateMin: 0, sick: 3, personal: 11, vacation: 0, absent: 0 },
+  { name: 'วุฒิ', late: 132, lateMin: 2579, sick: 17, personal: 3, vacation: 3, absent: 2 },
+  { name: 'ปราย', late: 2, lateMin: 5, sick: 1, personal: 1, vacation: 0, absent: 0 },
+  { name: 'ทิว', late: 17, lateMin: 485, sick: 0, personal: 1, vacation: 0, absent: 0 },
+  { name: 'ฟอร์ด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'โอเว่น', late: 1, lateMin: 8, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'แมน', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'อู๋', late: 2, lateMin: 9, sick: 6, personal: 0, vacation: 0, absent: 0 },
+  { name: 'เกมส์', late: 85, lateMin: 1225, sick: 0, personal: 0, vacation: 3, absent: 0 },
+  { name: 'เชอรรี่', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 4, absent: 0 },
+  { name: 'เบนซ์', late: 23, lateMin: 125, sick: 0, personal: 5, vacation: 0, absent: 0 },
+  { name: 'องุ่น', late: 1, lateMin: 18, sick: 1, personal: 0, vacation: 0, absent: 0 },
+  { name: 'อ๊อฟ', late: 1, lateMin: 0, sick: 0, personal: 5, vacation: 0, absent: 0 },
+  { name: 'ก็อต', late: 39, lateMin: 565, sick: 1, personal: 4, vacation: 0, absent: 0 },
+  { name: 'ทิพย์', late: 57, lateMin: 442, sick: 2, personal: 0, vacation: 0, absent: 0 },
+  { name: 'พี่ยอด', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'อุ้ม', late: 50, lateMin: 645, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'ใบตอง', late: 26, lateMin: 535, sick: 6, personal: 3, vacation: 0, absent: 3 },
+  { name: 'เจษ', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'บอส', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'บูม', late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 },
+  { name: 'ไปท์', late: 2, lateMin: 11, sick: 0, personal: 0, vacation: 0, absent: 0 }
+];
 
-  const AttendanceSlide = () => {
-    const totalLate = attendanceData.reduce((a, m) => a + m.late, 0);
-    const totalLateMin = attendanceData.reduce((a, m) => a + m.lateMin, 0);
-    const totalSick = attendanceData.reduce((a, m) => a + m.sick, 0);
-    const totalPersonal = attendanceData.reduce((a, m) => a + m.personal, 0);
-    const totalVacation = attendanceData.reduce((a, m) => a + m.vacation, 0);
-    const totalAbsent = attendanceData.reduce((a, m) => a + m.absent, 0);
+const AttendanceSlide = () => {
+  const totalLate = attendanceData.reduce((a, m) => a + m.late, 0);
+  const totalLateMin = attendanceData.reduce((a, m) => a + m.lateMin, 0);
+  const totalSick = attendanceData.reduce((a, m) => a + m.sick, 0);
+  const totalPersonal = attendanceData.reduce((a, m) => a + m.personal, 0);
+  const totalVacation = attendanceData.reduce((a, m) => a + m.vacation, 0);
+  const totalAbsent = attendanceData.reduce((a, m) => a + m.absent, 0);
 
-    const topLate = [...attendanceData].sort((a, b) => b.late - a.late).slice(0, 5).filter(m => m.late > 0);
-    const topAbsent = [...attendanceData].sort((a, b) => b.absent - a.absent).filter(m => m.absent > 0);
-    const topSick = [...attendanceData].sort((a, b) => b.sick - a.sick).slice(0, 5).filter(m => m.sick > 0);
-    const topPersonal = [...attendanceData].sort((a, b) => b.personal - a.personal).slice(0, 5).filter(m => m.personal > 0);
+  const topLate = [...attendanceData].sort((a, b) => b.late - a.late).slice(0, 5).filter(m => m.late > 0);
+  const topAbsent = [...attendanceData].sort((a, b) => b.absent - a.absent).filter(m => m.absent > 0);
+  const topSick = [...attendanceData].sort((a, b) => b.sick - a.sick).slice(0, 5).filter(m => m.sick > 0);
+  const topPersonal = [...attendanceData].sort((a, b) => b.personal - a.personal).slice(0, 5).filter(m => m.personal > 0);
 
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:12}}>📊 สถิติขาด ลา มาสาย</h2>
-        
-        <div style={{background:'white',borderRadius:8,overflow:'hidden',marginBottom:10}}>
-          <table style={{width:'100%',fontSize:9,borderCollapse:'collapse'}}>
-            <thead>
-              <tr style={{background:'#4f46e5',color:'white'}}>
-                <th style={{padding:5,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:5,textAlign:'center'}}>สาย(วัน)</th>
-                <th style={{padding:5,textAlign:'center'}}>สาย(นาที)</th>
-                <th style={{padding:5,textAlign:'center'}}>ป่วย</th>
-                <th style={{padding:5,textAlign:'center'}}>กิจ</th>
-                <th style={{padding:5,textAlign:'center'}}>พักร้อน</th>
-                <th style={{padding:5,textAlign:'center'}}>ขาด</th>
+  return (
+    <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:16,overflow:'auto'}}>
+      <h2 style={{fontSize:24,fontWeight:'bold',color:'#1e293b',marginBottom:14}}>📊 สถิติขาด ลา มาสาย</h2>
+
+      <div style={{background:'white',borderRadius:12,overflow:'hidden',marginBottom:16,border:'1px solid #e2e8f0'}}>
+        <table style={{width:'100%',fontSize:14,borderCollapse:'collapse'}}>
+          <thead>
+            <tr style={{background:'#4f46e5',color:'white'}}>
+              <th style={{padding:10,textAlign:'left',fontSize:14,width:'28%'}}>ชื่อ</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14,whiteSpace:'nowrap'}}>สาย(วัน)</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14,whiteSpace:'nowrap'}}>สาย(นาที)</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14}}>ป่วย</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14}}>กิจ</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14}}>พักร้อน</th>
+              <th style={{padding:10,textAlign:'center',fontSize:14}}>ขาด</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {attendanceData.map((m, i) => (
+              <tr key={i} style={{background: i%2===0?'white':'#f8fafc'}}>
+                <td style={{padding:10,fontWeight:600,fontSize:14}}>{m.name}</td>
+
+                <td style={{
+                  padding:10,
+                  textAlign:'center',
+                  background: m.late > 50 ? '#fef2f2' : 'transparent',
+                  color: m.late > 50 ? '#dc2626' : '#0f172a',
+                  fontWeight: m.late > 50 ? 'bold' : 600,
+                  fontSize:14,
+                  whiteSpace:'nowrap'
+                }}>
+                  {m.late || '-'}
+                </td>
+
+                <td style={{
+                  padding:10,
+                  textAlign:'center',
+                  background: m.lateMin > 500 ? '#fef2f2' : 'transparent',
+                  color: m.lateMin > 500 ? '#dc2626' : '#0f172a',
+                  fontWeight: m.lateMin > 500 ? 'bold' : 600,
+                  fontSize:14,
+                  whiteSpace:'nowrap'
+                }}>
+                  {m.lateMin || '-'}
+                </td>
+
+                <td style={{padding:10,textAlign:'center',fontSize:14,whiteSpace:'nowrap'}}>{m.sick || '-'}</td>
+                <td style={{padding:10,textAlign:'center',fontSize:14,whiteSpace:'nowrap'}}>{m.personal || '-'}</td>
+                <td style={{padding:10,textAlign:'center',fontSize:14,whiteSpace:'nowrap'}}>{m.vacation || '-'}</td>
+
+                <td style={{
+                  padding:10,
+                  textAlign:'center',
+                  background: m.absent > 0 ? '#fef2f2' : 'transparent',
+                  color: m.absent > 0 ? '#dc2626' : '#0f172a',
+                  fontWeight: m.absent > 0 ? 'bold' : 600,
+                  fontSize:14,
+                  whiteSpace:'nowrap'
+                }}>
+                  {m.absent || '-'}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {attendanceData.map((m, i) => (
-                <tr key={i} style={{background: i%2===0?'white':'#f8fafc'}}>
-                  <td style={{padding:4,fontWeight:500}}>{m.name}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.late > 50 ? '#fef2f2' : 'transparent', color: m.late > 50 ? '#dc2626' : 'inherit', fontWeight: m.late > 50 ? 'bold' : 'normal'}}>{m.late || '-'}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.lateMin > 500 ? '#fef2f2' : 'transparent', color: m.lateMin > 500 ? '#dc2626' : 'inherit', fontWeight: m.lateMin > 500 ? 'bold' : 'normal'}}>{m.lateMin || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.sick || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.personal || '-'}</td>
-                  <td style={{padding:4,textAlign:'center'}}>{m.vacation || '-'}</td>
-                  <td style={{padding:4,textAlign:'center',background: m.absent > 0 ? '#fef2f2' : 'transparent', color: m.absent > 0 ? '#dc2626' : 'inherit', fontWeight: m.absent > 0 ? 'bold' : 'normal'}}>{m.absent || '-'}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr style={{background:'#e0e7ff',fontWeight:'bold'}}>
-                <td style={{padding:6}}>รวม</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalLate}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalLateMin}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalSick}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalPersonal}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalVacation}</td>
-                <td style={{padding:6,textAlign:'center'}}>{totalAbsent}</td>
-              </tr>
-            </tfoot>
-          </table>
+            ))}
+          </tbody>
+
+          <tfoot>
+            <tr style={{background:'#e0e7ff',fontWeight:'bold'}}>
+              <td style={{padding:12,fontSize:14}}>รวม</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalLate}</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalLateMin}</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalSick}</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalPersonal}</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalVacation}</td>
+              <td style={{padding:12,textAlign:'center',fontSize:14}}>{totalAbsent}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}}>
+        <div style={{background:'#fee2e2',padding:12,borderRadius:12,border:'1px solid #fecaca'}}>
+          <p style={{fontSize:15,fontWeight:'bold',color:'#dc2626',margin:'0 0 10px'}}>🚨 มาสายมากสุด Top 5</p>
+          {topLate.map((m, i) => (
+            <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:14,padding:'6px 0',borderBottom:i!==topLate.length-1?'1px dashed #fca5a5':'none'}}>
+              <span style={{fontWeight:600}}>{i+1}. {m.name}</span>
+              <span style={{fontWeight:'bold'}}>{m.late} วัน ({m.lateMin} นาที)</span>
+            </div>
+          ))}
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:10}}>
-          <div style={{background:'#fee2e2',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#dc2626',margin:'0 0 6px'}}>🚨 มาสายมากสุด Top 5</p>
-            {topLate.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
-                <span>{i+1}. {m.name}</span>
-                <span style={{fontWeight:'bold'}}>{m.late} วัน ({m.lateMin} นาที)</span>
-              </div>
-            ))}
-          </div>
-          <div style={{background:'#fecaca',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#b91c1c',margin:'0 0 6px'}}>❌ ขาดงาน</p>
-            {topAbsent.length > 0 ? topAbsent.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
-                <span>{i+1}. {m.name}</span>
-                <span style={{fontWeight:'bold'}}>{m.absent} วัน</span>
-              </div>
-            )) : <p style={{fontSize:10,color:'#64748b',margin:0}}>ไม่มี</p>}
-          </div>
-        </div>
-
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-          <div style={{background:'#fef9c3',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#ca8a04',margin:'0 0 6px'}}>🏥 ลาป่วยมากสุด Top 5</p>
-            {topSick.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
-                <span>{i+1}. {m.name}</span>
-                <span style={{fontWeight:'bold'}}>{m.sick} วัน</span>
-              </div>
-            ))}
-          </div>
-          <div style={{background:'#fed7aa',padding:8,borderRadius:8}}>
-            <p style={{fontSize:11,fontWeight:'bold',color:'#ea580c',margin:'0 0 6px'}}>📝 ลากิจมากสุด Top 5</p>
-            {topPersonal.map((m, i) => (
-              <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:10,padding:'2px 0'}}>
-                <span>{i+1}. {m.name}</span>
-                <span style={{fontWeight:'bold'}}>{m.personal} วัน</span>
-              </div>
-            ))}
-          </div>
+        <div style={{background:'#fecaca',padding:12,borderRadius:12,border:'1px solid #fca5a5'}}>
+          <p style={{fontSize:15,fontWeight:'bold',color:'#b91c1c',margin:'0 0 10px'}}>❌ ขาดงาน</p>
+          {topAbsent.length > 0 ? topAbsent.map((m, i) => (
+            <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:14,padding:'6px 0',borderBottom:i!==topAbsent.length-1?'1px dashed #fb7185':'none'}}>
+              <span style={{fontWeight:600}}>{i+1}. {m.name}</span>
+              <span style={{fontWeight:'bold'}}>{m.absent} วัน</span>
+            </div>
+          )) : <p style={{fontSize:14,color:'#64748b',margin:0}}>ไม่มี</p>}
         </div>
       </div>
-    );
-  };
+
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+        <div style={{background:'#fef9c3',padding:12,borderRadius:12,border:'1px solid #fde68a'}}>
+          <p style={{fontSize:15,fontWeight:'bold',color:'#ca8a04',margin:'0 0 10px'}}>🏥 ลาป่วยมากสุด Top 5</p>
+          {topSick.map((m, i) => (
+            <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:14,padding:'6px 0',borderBottom:i!==topSick.length-1?'1px dashed #facc15':'none'}}>
+              <span style={{fontWeight:600}}>{i+1}. {m.name}</span>
+              <span style={{fontWeight:'bold'}}>{m.sick} วัน</span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{background:'#fed7aa',padding:12,borderRadius:12,border:'1px solid #fdba74'}}>
+          <p style={{fontSize:15,fontWeight:'bold',color:'#ea580c',margin:'0 0 10px'}}>📝 ลากิจมากสุด Top 5</p>
+          {topPersonal.map((m, i) => (
+            <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:14,padding:'6px 0',borderBottom:i!==topPersonal.length-1?'1px dashed #fb923c':'none'}}>
+              <span style={{fontWeight:600}}>{i+1}. {m.name}</span>
+              <span style={{fontWeight:'bold'}}>{m.personal} วัน</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
   const AllMembersSlide = () => {
     const allMembers = teams.flatMap(t => t.members.map(m => ({...m, teamName: t.name, teamColor: t.color})));
@@ -1020,6 +1059,7 @@ const PersonModal = () => {
     </div>
   );
 }
+
 
 
 
