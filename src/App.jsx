@@ -700,105 +700,178 @@ const AttendanceSlide = () => {
     );
   };
 
-  const BonusCalcSlide = () => {
-    const calcBonus = (m) => {
-      const att = attendanceData.find(a => a.name === m.name || m.name.includes(a.name) || a.name.includes(m.name.split(' ')[0])) || { late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 };
-      const totalMonths = m.years * 12 + m.months;
-      let bonusMonths = 0;
-      if (totalMonths < 6) bonusMonths = 0.5;
-      else if (totalMonths < 12) bonusMonths = 0.5;
-      else if (totalMonths < 24) bonusMonths = 1;
-      else if (totalMonths < 48) bonusMonths = 2.5;
-      else if (totalMonths < 60) bonusMonths = 4;
-      else bonusMonths = 5;
-      const baseBonus = m.salary * bonusMonths;
-      const dailyWage = m.salary / 30;
-      const isExempt = m.name === 'น้ำ' || m.name === 'อิ่ม';
-      const lateDed = isExempt ? 0 : att.lateMin * 1;
-      const absentDed = isExempt ? 0 : att.absent * dailyWage * 5;
-      const personalDed = isExempt ? 0 : att.personal * dailyWage * 3;
-      const sickDed = isExempt ? 0 : att.sick * dailyWage * 1;
-      const totalDed = lateDed + absentDed + personalDed + sickDed;
-      const netBonus = Math.max(0, baseBonus - totalDed);
-      const isPerfect = att.lateMin === 0 && att.absent === 0 && att.personal === 0 && att.sick === 0;
-      return { baseBonus, lateDed, absentDed, personalDed, sickDed, totalDed, netBonus, bonusMonths, att, isPerfect };
-    };
+ const BonusCalcSlide = () => {
+  const calcBonus = (m) => {
+    const att =
+      attendanceData.find(
+        (a) => a.name === m.name || m.name.includes(a.name) || a.name.includes(m.name.split(' ')[0])
+      ) || { late: 0, lateMin: 0, sick: 0, personal: 0, vacation: 0, absent: 0 };
 
-    const bonusData = workMembers.map(m => ({ ...m, ...calcBonus(m) }));
-    const totalBase = bonusData.reduce((a, b) => a + b.baseBonus, 0);
-    const totalDed = bonusData.reduce((a, b) => a + b.totalDed, 0);
-    const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
+    const totalMonths = m.years * 12 + m.months;
 
-    return (
-      <div style={{height:'100%',background:'linear-gradient(to bottom right,#f8fafc,#f1f5f9)',padding:12,overflow:'auto'}}>
-        <h2 style={{fontSize:18,fontWeight:'bold',color:'#1e293b',marginBottom:8}}>💵 คำนวณโบนัสสุทธิ</h2>
-        <div style={{background:'#e0e7ff',padding:8,borderRadius:8,marginBottom:8,fontSize:9}}>
-          <strong>เงื่อนไขโบนัส:</strong> &lt;6ด.=0.5เดือน | 6ด.-1ปี=0.5เดือน | 1-2ปี=1เดือน | 2-4ปี=2.5เดือน | 4-5ปี=4เดือน | 5ปี+=5เดือน<br/>
-          <strong>หักลด:</strong> สาย=1฿/นาที | ขาด=ค่าแรงx5/วัน | ลากิจ=ค่าแรงx3/วัน | ลาป่วย=ค่าแรงx1/วัน
-        </div>
-        <div style={{background:'white',borderRadius:8,overflow:'hidden'}}>
-          <table style={{width:'100%',fontSize:9,borderCollapse:'collapse'}}>
-            <thead>
-              <tr style={{background:'#7c3aed',color:'white'}}>
-                <th style={{padding:4,textAlign:'left'}}>ชื่อ</th>
-                <th style={{padding:4,textAlign:'center'}}>อายุงาน</th>
-                <th style={{padding:4,textAlign:'right'}}>โบนัสเดิม</th>
-                <th style={{padding:4,textAlign:'right'}}>หักสาย</th>
-                <th style={{padding:4,textAlign:'right'}}>หักขาด</th>
-                <th style={{padding:4,textAlign:'right'}}>หักกิจ</th>
-                <th style={{padding:4,textAlign:'right'}}>หักป่วย</th>
-                <th style={{padding:4,textAlign:'right',background:'#16a34a'}}>โบนัสสุทธิ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bonusData.map((m, i) => (
-                <tr key={i} style={{background: m.warning ? '#fef2f2' : m.isPerfect ? '#f0fdf4' : i%2===0?'white':'#f8fafc', border: m.warning ? '2px solid #ef4444' : 'none'}}>
-                  <td style={{padding:4}}>
-                    {m.warning && <span>⚠️</span>}
-                    <span style={{fontWeight:500}}>{m.name}</span>
-                    {m.isPerfect && <span style={{marginLeft:4}}>⭐</span>}
-                    <div style={{background:m.color,color:'white',padding:'1px 4px',borderRadius:4,fontSize:8,display:'inline-block',marginLeft:4}}>{m.team}</div>
-                  </td>
-                  <td style={{padding:4,textAlign:'center',fontSize:8}}>{m.years}ปี{m.months}ด. ({m.bonusMonths}ด.)</td>
-                  <td style={{padding:4,textAlign:'right',color:'#2563eb'}}>฿{m.baseBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.lateDed>0?'#dc2626':'#9ca3af'}}>{m.lateDed>0?`-฿${m.lateDed.toLocaleString()}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.absentDed>0?'#dc2626':'#9ca3af'}}>{m.absentDed>0?`-฿${m.absentDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.personalDed>0?'#dc2626':'#9ca3af'}}>{m.personalDed>0?`-฿${m.personalDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',color:m.sickDed>0?'#dc2626':'#9ca3af'}}>{m.sickDed>0?`-฿${m.sickDed.toLocaleString(undefined,{maximumFractionDigits:0})}`:'-'}</td>
-                  <td style={{padding:4,textAlign:'right',fontWeight:'bold',color:'#16a34a',background:'#f0fdf4'}}>฿{m.netBonus.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr style={{background:'#7c3aed',color:'white',fontWeight:'bold'}}>
-                <td style={{padding:6}} colSpan={2}>รวมทั้งหมด</td>
-                <td style={{padding:8,textAlign:'right',fontSize:12}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-              <td colSpan={4} style={{padding:8,fontSize:11,textAlign:'center',color:'#fca5a5'}}>
-                หักรวม: ฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}
-              </td>
-                <td style={{padding:8,textAlign:'right',background:'#16a34a',fontSize:13}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginTop:10}}>
-          <div style={{background:'#dbeafe',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>โบนัสเดิมรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#2563eb',margin:0}}>฿{totalBase.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-          <div style={{background:'#fee2e2',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>หักลดรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#dc2626',margin:0}}>-฿{totalDed.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-          <div style={{background:'#dcfce7',padding:10,borderRadius:8,textAlign:'center'}}>
-            <p style={{fontSize:10,color:'#475569',margin:0}}>โบนัสสุทธิรวม</p>
-            <p style={{fontSize:16,fontWeight:'bold',color:'#16a34a',margin:0}}>฿{totalNet.toLocaleString(undefined,{maximumFractionDigits:0})}</p>
-          </div>
-        </div>
-        <div style={{marginTop:8,fontSize:9,color:'#64748b'}}>⭐ = ไม่ขาด ไม่ลา ไม่สาย รับโบนัสเต็ม</div>
-      </div>
-    );
+    // ✅ เงื่อนไขใหม่: ต่ำกว่า 6 เดือน = ไม่ได้รับโบนัส
+    let bonusMonths = 0;
+    if (totalMonths < 6) bonusMonths = 0;
+    else if (totalMonths < 12) bonusMonths = 0.5;
+    else if (totalMonths < 24) bonusMonths = 1;
+    else if (totalMonths < 48) bonusMonths = 2.5;
+    else if (totalMonths < 60) bonusMonths = 4;
+    else bonusMonths = 5;
+
+    const baseBonus = m.salary * bonusMonths;
+    const dailyWage = m.salary / 30;
+
+    const isExempt = m.name === 'น้ำ' || m.name === 'อิ่ม';
+
+    const lateDed = isExempt ? 0 : att.lateMin * 1;
+    const absentDed = isExempt ? 0 : att.absent * dailyWage * 5;
+    const personalDed = isExempt ? 0 : att.personal * dailyWage * 3;
+    const sickDed = isExempt ? 0 : att.sick * dailyWage * 1;
+
+    // ✅ ถ้าไม่ได้โบนัส (baseBonus=0) ให้ “ไม่ต้องหัก” ด้วย เพื่อให้แสดงเป็น 0 ชัดเจน
+    const totalDed = baseBonus <= 0 ? 0 : lateDed + absentDed + personalDed + sickDed;
+    const netBonus = baseBonus <= 0 ? 0 : Math.max(0, baseBonus - totalDed);
+
+    const isPerfect = att.lateMin === 0 && att.absent === 0 && att.personal === 0 && att.sick === 0;
+
+    return { baseBonus, lateDed, absentDed, personalDed, sickDed, totalDed, netBonus, bonusMonths, att, isPerfect, totalMonths };
   };
+
+  const bonusData = workMembers.map((m) => ({ ...m, ...calcBonus(m) }));
+  const totalBase = bonusData.reduce((a, b) => a + b.baseBonus, 0);
+  const totalDed = bonusData.reduce((a, b) => a + b.totalDed, 0);
+  const totalNet = bonusData.reduce((a, b) => a + b.netBonus, 0);
+
+  return (
+    <div style={{ height: '100%', background: 'linear-gradient(to bottom right,#f8fafc,#f1f5f9)', padding: 16, overflow: 'auto' }}>
+      <h2 style={{ fontSize: 24, fontWeight: 'bold', color: '#1e293b', marginBottom: 10 }}>💵 คำนวณโบนัสสุทธิ</h2>
+
+      <div style={{ background: '#e0e7ff', padding: 12, borderRadius: 12, marginBottom: 12, fontSize: 13, lineHeight: 1.6 }}>
+        <strong>เงื่อนไขโบนัส:</strong> ต่ำกว่า 6 เดือน = <b>0 เดือน (ไม่ได้รับโบนัส)</b> | 6ด.-1ปี=0.5เดือน | 1-2ปี=1เดือน | 2-4ปี=2.5เดือน | 4-5ปี=4เดือน | 5ปี+=5เดือน
+        <br />
+        <strong>หักลด:</strong> สาย=1฿/นาที | ขาด=ค่าแรงx5/วัน | ลากิจ=ค่าแรงx3/วัน | ลาป่วย=ค่าแรงx1/วัน
+      </div>
+
+      <div style={{ background: 'white', borderRadius: 12, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+        <table style={{ width: '100%', fontSize: 13, borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#7c3aed', color: 'white' }}>
+              <th style={{ padding: 10, textAlign: 'left', fontSize: 13 }}>ชื่อ</th>
+              <th style={{ padding: 10, textAlign: 'center', fontSize: 13, whiteSpace: 'nowrap' }}>อายุงาน</th>
+              <th style={{ padding: 10, textAlign: 'right', fontSize: 13, whiteSpace: 'nowrap' }}>โบนัสเดิม</th>
+              <th style={{ padding: 10, textAlign: 'right', fontSize: 13, whiteSpace: 'nowrap' }}>หักสาย</th>
+              <th style={{ padding: 10, textAlign: 'right', fontSize: 13, whiteSpace: 'nowrap' }}>หักขาด</th>
+              <th style={{ padding: 10, textAlign: 'right', fontSize: 13, whiteSpace: 'nowrap' }}>หักกิจ</th>
+              <th style={{ padding: 10, textAlign: 'right', fontSize: 13, whiteSpace: 'nowrap' }}>หักป่วย</th>
+              <th style={{ padding: 10, textAlign: 'right', background: '#16a34a', fontSize: 13, whiteSpace: 'nowrap' }}>โบนัสสุทธิ</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {bonusData.map((m, i) => {
+              const noBonus = m.totalMonths < 6;
+              return (
+                <tr
+                  key={i}
+                  style={{
+                    background: m.warning ? '#fef2f2' : noBonus ? '#fff7ed' : m.isPerfect ? '#f0fdf4' : i % 2 === 0 ? 'white' : '#f8fafc',
+                    border: m.warning ? '2px solid #ef4444' : 'none'
+                  }}
+                >
+                  <td style={{ padding: 10 }}>
+                    {m.warning && <span>⚠️ </span>}
+                    <span style={{ fontWeight: 700 }}>{m.name}</span>
+                    {m.isPerfect && !noBonus && <span style={{ marginLeft: 6 }}>⭐</span>}
+                    {noBonus && <span style={{ marginLeft: 6, color: '#ea580c', fontWeight: 800 }}>⛔ ไม่ถึง 6 เดือน</span>}
+                    <div style={{ background: m.color, color: 'white', padding: '2px 8px', borderRadius: 6, fontSize: 11, display: 'inline-block', marginLeft: 8 }}>
+                      {m.team}
+                    </div>
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'center', fontSize: 12, whiteSpace: 'nowrap' }}>
+                    {m.years}ปี{m.months}ด. ({m.bonusMonths}ด.)
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', color: '#2563eb', fontWeight: 700, whiteSpace: 'nowrap' }}>
+                    ฿{m.baseBonus.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', color: m.baseBonus <= 0 ? '#9ca3af' : m.lateDed > 0 ? '#dc2626' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                    {m.baseBonus <= 0 ? '-' : m.lateDed > 0 ? `-฿${m.lateDed.toLocaleString()}` : '-'}
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', color: m.baseBonus <= 0 ? '#9ca3af' : m.absentDed > 0 ? '#dc2626' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                    {m.baseBonus <= 0 ? '-' : m.absentDed > 0 ? `-฿${m.absentDed.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : '-'}
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', color: m.baseBonus <= 0 ? '#9ca3af' : m.personalDed > 0 ? '#dc2626' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                    {m.baseBonus <= 0 ? '-' : m.personalDed > 0 ? `-฿${m.personalDed.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : '-'}
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', color: m.baseBonus <= 0 ? '#9ca3af' : m.sickDed > 0 ? '#dc2626' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                    {m.baseBonus <= 0 ? '-' : m.sickDed > 0 ? `-฿${m.sickDed.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : '-'}
+                  </td>
+
+                  <td style={{ padding: 10, textAlign: 'right', fontWeight: 900, color: '#16a34a', background: '#f0fdf4', whiteSpace: 'nowrap' }}>
+                    ฿{m.netBonus.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+
+          <tfoot>
+            <tr style={{ background: '#7c3aed', color: 'white', fontWeight: 'bold' }}>
+              <td style={{ padding: 12, fontSize: 14 }} colSpan={2}>
+                รวมทั้งหมด
+              </td>
+
+              <td style={{ padding: 12, textAlign: 'right', fontSize: 14, whiteSpace: 'nowrap' }}>
+                ฿{totalBase.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </td>
+
+              <td colSpan={4} style={{ padding: 12, fontSize: 13, textAlign: 'center', color: '#fca5a5' }}>
+                หักรวม: ฿{totalDed.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </td>
+
+              <td style={{ padding: 12, textAlign: 'right', background: '#16a34a', fontSize: 14, whiteSpace: 'nowrap' }}>
+                ฿{totalNet.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginTop: 12 }}>
+        <div style={{ background: '#dbeafe', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>โบนัสเดิมรวม</p>
+          <p style={{ fontSize: 18, fontWeight: 'bold', color: '#2563eb', margin: 0 }}>
+            ฿{totalBase.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          </p>
+        </div>
+
+        <div style={{ background: '#fee2e2', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>หักลดรวม</p>
+          <p style={{ fontSize: 18, fontWeight: 'bold', color: '#dc2626', margin: 0 }}>
+            -฿{totalDed.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          </p>
+        </div>
+
+        <div style={{ background: '#dcfce7', padding: 12, borderRadius: 12, textAlign: 'center' }}>
+          <p style={{ fontSize: 12, color: '#475569', margin: 0 }}>โบนัสสุทธิรวม</p>
+          <p style={{ fontSize: 18, fontWeight: 'bold', color: '#16a34a', margin: 0 }}>
+            ฿{totalNet.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 10, fontSize: 12, color: '#64748b' }}>
+        ⭐ = ไม่ขาด ไม่ลา ไม่สาย รับโบนัสเต็ม (และต้องอายุงานถึงเกณฑ์)
+      </div>
+    </div>
+  );
+};
+
 
   const OTSlide = () => {
     const otData = [
@@ -1059,6 +1132,7 @@ const AttendanceSlide = () => {
     </div>
   );
 }
+
 
 
 
