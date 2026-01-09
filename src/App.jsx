@@ -119,6 +119,31 @@ export default function App() {
                 );
               })}
             </div>
+            <div style={{background:'#fefce8',padding:20,borderRadius:16}}>
+  <h3 style={{fontSize:22,margin:'0 0 12px'}}>หมายเหตุ</h3>
+
+  <ul style={{
+    margin: 0,
+    paddingLeft: 20,
+    background: 'white',
+    padding: 16,
+    borderRadius: 12,
+    color: '#475569',
+    fontSize: 16,
+    lineHeight: 1.7,
+    whiteSpace: 'normal' // ไม่ต้องใช้ pre-line แล้ว เพราะเราทำเป็น list
+  }}>
+    {(person.review || '-')
+      .split('\n')
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map((line, idx) => (
+        <li key={idx} style={{ marginBottom: 10 }}>
+          {line.replace(/^•\s?/, '')}
+        </li>
+      ))}
+  </ul>
+</div>
             <div style={{background:'#fefce8',padding:12,borderRadius:8}}>
               <h3 style={{fontSize:14,margin:'0 0 8px'}}>หมายเหตุ</h3>
               <p style={{fontSize:12,color:'#475569',background:'white',padding:8,borderRadius:4,margin:0}}>{person.review || '-'}</p>
@@ -932,6 +957,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
